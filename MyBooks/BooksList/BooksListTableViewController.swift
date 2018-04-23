@@ -12,12 +12,18 @@ class BooksListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: "goToRegister")
+        self.navigationItem.setRightBarButton(add, animated: true)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+   @objc func goToRegister() {
+    self.navigationController?.pushViewController(BookRegisterViewController(), animated: true)
     }
 
     override func didReceiveMemoryWarning() {

@@ -15,8 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        window?.rootViewController = BookRegisterViewController()
-        window?.makeKeyAndVisible()
+        
+        let booksListNavigationController = UINavigationController(rootViewController: BooksListTableViewController()) // Cria uma UINavigationController, setanndo o rootViewController como BooksListTableViewController
+        
+        window = UIWindow(frame: UIScreen.main.bounds) // Cria uma UIWindow com frame do tamanho do retângulo da tela do aparelho
+        window?.rootViewController =  booksListNavigationController // Define booksListNavigationController como rootViewController (inicial)
+        window?.makeKeyAndVisible() // Torna visível
         return true
     }
 
