@@ -12,6 +12,63 @@ class BookRegisterView: UIView {
 
     var reminderIsVisible = false
     
+    let domingo: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("D", for: UIControlState.normal)
+        button.tintColor = .lightGray
+        button.isEnabled = false
+        return button
+    }()
+    let segunda: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("S", for: UIControlState.normal)
+        button.tintColor = .lightGray
+        button.isEnabled = false
+        return button
+    }()
+    let terca: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("T", for: UIControlState.normal)
+        button.tintColor = .lightGray
+        button.isEnabled = false
+        return button
+    }()
+    let quarta: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Q", for: UIControlState.normal)
+        button.tintColor = .lightGray
+        button.isEnabled = false
+        return button
+    }()
+    let quinta: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Q", for: UIControlState.normal)
+        button.tintColor = .lightGray
+        button.isEnabled = false
+        return button
+    }()
+    let sexta: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("S", for: UIControlState.normal)
+        button.tintColor = .lightGray
+        button.isEnabled = false
+        return button
+    }()
+    let sabado: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("S", for: UIControlState.normal)
+        button.tintColor = .lightGray
+        button.isEnabled = false
+        return button
+    }()
+    
     var cover: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,6 +126,7 @@ class BookRegisterView: UIView {
     let timePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.minimumDate = Date()
         datePicker.isEnabled = false
         return datePicker
     }()
@@ -118,11 +176,21 @@ class BookRegisterView: UIView {
             return stackView
         }()
         
+        let stackRepeatDays: UIStackView = {
+            let stackView = UIStackView(arrangedSubviews: [domingo, segunda, terca, quarta, quinta, sexta, sabado, domingo])
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            stackView.axis = .horizontal
+            stackView.spacing = 8
+            return stackView
+        }()
+        
         addSubview(cover)
         addSubview(stackInfo)
         addSubview(stackReminder)
         addSubview(timePicker)
+        addSubview(stackRepeatDays)
         addSubview(saveButton)
+        
         cover.widthAnchor.constraint(equalToConstant: 100).isActive = true
         cover.heightAnchor.constraint(equalToConstant: 150).isActive = true
         cover.topAnchor.constraint(equalTo: self.topAnchor, constant: 80).isActive = true
@@ -137,7 +205,9 @@ class BookRegisterView: UIView {
         timePicker.topAnchor.constraint(equalTo: stackReminder.bottomAnchor, constant: 8).isActive = true
         timePicker.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
         timePicker.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
-        saveButton.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 16).isActive = true
+        stackRepeatDays.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 16).isActive = true
+        stackRepeatDays.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        saveButton.topAnchor.constraint(equalTo: stackRepeatDays.bottomAnchor, constant: 16).isActive = true
         saveButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         
     }
@@ -145,6 +215,13 @@ class BookRegisterView: UIView {
     @objc func setReminderVisibility() {
         reminderIsVisible = !reminderIsVisible
         timePicker.isEnabled = reminderIsVisible
+        domingo.isEnabled = reminderIsVisible
+        segunda.isEnabled = reminderIsVisible
+        terca.isEnabled = reminderIsVisible
+        quarta.isEnabled = reminderIsVisible
+        quinta.isEnabled = reminderIsVisible
+        sexta.isEnabled = reminderIsVisible
+        sabado.isEnabled = reminderIsVisible
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import UserNotifications
 
 class BookRegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
 
@@ -27,6 +28,25 @@ class BookRegisterViewController: UIViewController, UIImagePickerControllerDeleg
         
         bookRegisterView.frame = view.frame
         view.addSubview(bookRegisterView)
+    }
+    
+    func createNotifications(inSeconds: TimeInterval, completion: @escaping (_ Success: Bool) -> ()) {
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: false)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Title"
+        content.body = "body"
+        content.sound = UNNotificationSound.default()
+        
+        let notification = UNNotificationRequest(identifier: "myBooksNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(notification) { (error) in
+            if error != nil {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -53,7 +73,7 @@ class BookRegisterViewController: UIViewController, UIImagePickerControllerDeleg
         let title: String = bookRegisterView.titleText.text!
         if title != "" {
             
-//            let sameBook = realm.objects(Book.self).filter("tile == \(title)")
+//            try! let sameBook = realm.objects(Book.self).filter("tile == \(title)")
 //            if sameBook.count != 0 {
 //                let alertView = UIAlertController(title: "Livro já cadastrado", message: "Deseja substituir sobreescrever os dados existentes?", preferredStyle: .actionSheet)
 //                alertView.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in
@@ -92,6 +112,11 @@ class BookRegisterViewController: UIViewController, UIImagePickerControllerDeleg
         try! realm.write {
             realm.add(book, update: true)
         }
+        
+        if bookRegisterView.reminderIsVisible {
+            let date = bookRegisterView.timePicker.date.timeIntervalSince(Date())
+            print(date)
+            createNotifications(inSeconds: date, completion: { (success) in })
+        }
     }
 }
-

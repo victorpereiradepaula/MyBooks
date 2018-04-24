@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+
 class Book: Object {
     
     @objc dynamic var title: String = ""
@@ -17,5 +18,4 @@ class Book: Object {
     override static func primaryKey() -> String? {
         return "title"
     }
-
 }
