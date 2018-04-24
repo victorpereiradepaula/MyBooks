@@ -14,6 +14,7 @@ class BookRegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Cadastro de livro"
         bookRegisterView.frame = view.frame
         view.addSubview(bookRegisterView)
     }

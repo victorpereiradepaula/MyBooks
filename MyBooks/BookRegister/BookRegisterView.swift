@@ -21,7 +21,7 @@ class BookRegisterView: UIView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Title:"
+        label.text = "Título:"
         label.sizeToFit()
         return label
     }()
@@ -36,7 +36,7 @@ class BookRegisterView: UIView {
     let pagesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Pages:"
+        label.text = "Páginas:"
         label.sizeToFit()
         return label
     }()
@@ -56,17 +56,24 @@ class BookRegisterView: UIView {
         return label
     }()
     
-    var reminderActivator: UISwitch = {
+    let reminderActivator: UISwitch = {
         let uiSwitch = UISwitch()
         uiSwitch.translatesAutoresizingMaskIntoConstraints = false
         return uiSwitch
     }()
     
-    var timePicker: UIDatePicker = {
+    let timePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.isEnabled = false
         return datePicker
+    }()
+    
+    let saveButton: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Salvar", for: UIControlState.normal)
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -111,11 +118,12 @@ class BookRegisterView: UIView {
         addSubview(stackInfo)
         addSubview(stackReminder)
         addSubview(timePicker)
+        addSubview(saveButton)
         cover.widthAnchor.constraint(equalToConstant: 100).isActive = true
         cover.heightAnchor.constraint(equalToConstant: 150).isActive = true
         cover.topAnchor.constraint(equalTo: self.topAnchor, constant: 80).isActive = true
         cover.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        stackLabels.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        stackLabels.widthAnchor.constraint(equalToConstant: 65).isActive = true
         stackInfo.topAnchor.constraint(equalTo: cover.topAnchor).isActive = true
         stackInfo.leftAnchor.constraint(equalTo: cover.rightAnchor, constant: 8).isActive = true
         stackInfo.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
@@ -125,6 +133,8 @@ class BookRegisterView: UIView {
         timePicker.topAnchor.constraint(equalTo: stackReminder.bottomAnchor, constant: 8).isActive = true
         timePicker.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
         timePicker.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
+        saveButton.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 16).isActive = true
+        saveButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         
     }
     

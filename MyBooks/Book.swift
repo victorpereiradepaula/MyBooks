@@ -10,9 +10,9 @@ import Foundation
 import RealmSwift
 class Book: Object {
     
-    dynamic var title: String = ""
-    dynamic var pages: Int = 0
-    dynamic var cover = NSData()
+    @objc dynamic var title: String = ""
+    @objc dynamic var pages: Int = 0
+    @objc dynamic var cover = NSData()
 
     override static func primaryKey() -> String? {
         return "title"
