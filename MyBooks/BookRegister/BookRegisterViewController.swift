@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookRegisterViewController: UIViewController {
+class BookRegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     let bookRegisterView = BookRegisterView()
     

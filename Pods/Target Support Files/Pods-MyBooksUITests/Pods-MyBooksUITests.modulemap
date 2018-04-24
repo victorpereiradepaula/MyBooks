@@ -1,0 +1,6 @@
+framework module Pods_MyBooksUITests {
+  umbrella header "Pods-MyBooksUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
