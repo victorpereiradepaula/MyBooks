@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 class BookRegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
 
     let bookRegisterView = BookRegisterView()
+    let book = Book()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,8 @@ class BookRegisterViewController: UIViewController, UIImagePickerControllerDeleg
         let tap = UITapGestureRecognizer(target: self, action: #selector(openPhotoLibrary))
         tap.delegate = self
         bookRegisterView.cover.addGestureRecognizer(tap)
+        
+        bookRegisterView.saveButton.addTarget(self, action: #selector(saveBook), for: .touchUpInside)
         
         bookRegisterView.frame = view.frame
         view.addSubview(bookRegisterView)
@@ -40,6 +44,34 @@ class BookRegisterViewController: UIViewController, UIImagePickerControllerDeleg
         controller.delegate = self
         controller.sourceType = .photoLibrary
         present(controller, animated: true, completion: nil)
+    }
+    
+    @objc func saveBook() {
+        
+        let title: String = bookRegisterView.titleText.text!
+        if title != "" {
+            book.title = title
+        } else {
+            let alertView = UIAlertController(title: "Título não informado", message: "Insira o título do livro antes de salvar", preferredStyle: .alert)
+            present(alertView, animated: true, completion: nil)
+            alertView.addAction(UIAlertAction(title: "OK", style: .default))
+            return
+        }
+        
+        let pages: String = bookRegisterView.pagesText.text!
+        if pages != "" {
+            book.pages = Int(pages)!
+        }
+        
+        if bookRegisterView.cover.subviews.count != 0 {
+            let imageData: Data = UIImagePNGRepresentation(bookRegisterView.cover.image!)!
+            book.cover = imageData as NSData
+        }
+        
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(book, update: true)
+        }
     }
 }
 

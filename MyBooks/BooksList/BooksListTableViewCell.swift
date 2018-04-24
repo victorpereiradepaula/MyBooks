@@ -20,30 +20,30 @@ class BooksListTableViewCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 18.0)
         label.text = "Título:"
         label.sizeToFit()
         return label
     }()
     
-    let titleText: UITextField = {
-        let textField = UITextField()
+    let titleText: UILabel = {
+        let textField = UILabel()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.borderStyle = .roundedRect
         return textField
     }()
     
     let pagesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 16.0)
         label.text = "Páginas:"
         label.sizeToFit()
         return label
     }()
     
-    let pagesText: UITextField = {
-        let textField = UITextField()
+    let pagesText: UILabel = {
+        let textField = UILabel()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.borderStyle = .roundedRect
         return textField
     }()
     

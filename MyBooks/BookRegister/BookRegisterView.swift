@@ -23,6 +23,7 @@ class BookRegisterView: UIView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 18.0)
         label.text = "Título:"
         label.sizeToFit()
         return label
@@ -38,6 +39,7 @@ class BookRegisterView: UIView {
     let pagesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 16.0)
         label.text = "Páginas:"
         label.sizeToFit()
         return label
