@@ -11,9 +11,11 @@ import UIKit
 class BookRegisterView: UIView {
 
     var reminderIsVisible = false
+    
     var cover: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .lightGray
         return imageView
     }()

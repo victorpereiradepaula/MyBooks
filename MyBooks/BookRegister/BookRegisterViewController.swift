@@ -8,32 +8,38 @@
 
 import UIKit
 
-class BookRegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class BookRegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
 
     let bookRegisterView = BookRegisterView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationItem.title = "Cadastro de livro"
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(openPhotoLibrary))
+        tap.delegate = self
+        bookRegisterView.cover.addGestureRecognizer(tap)
+        
         bookRegisterView.frame = view.frame
         view.addSubview(bookRegisterView)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        bookRegisterView.cover.image = image
+        dismiss(animated: true, completion: nil)
     }
-    */
-
+    
+    @objc func openPhotoLibrary(_ sender: UITapGestureRecognizer) {
+        let controller = UIImagePickerController()
+        controller.delegate = self
+        controller.sourceType = .photoLibrary
+        present(controller, animated: true, completion: nil)
+    }
 }
 
