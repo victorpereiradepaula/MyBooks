@@ -11,6 +11,24 @@ import UIKit
 class BookRegisterView: UIView {
 
     var reminderIsVisible = false
+    var repeatIsVisible = false
+    
+    let repeatLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 16.0)
+        label.text = "Repetir:"
+        label.isEnabled = false
+        label.sizeToFit()
+        return label
+    }()
+    
+    let repeatSwitch: UISwitch = {
+        let uiSwitch = UISwitch()
+        uiSwitch.translatesAutoresizingMaskIntoConstraints = false
+        uiSwitch.isEnabled = false
+        return uiSwitch
+    }()
     
     let domingo: UIButton = {
         let button = UIButton(type: UIButtonType.system)
@@ -112,12 +130,13 @@ class BookRegisterView: UIView {
     let reminderActivatorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 18.0)
         label.text = "Cadastrar lembrete:"
         label.sizeToFit()
         return label
     }()
     
-    let reminderActivator: UISwitch = {
+    let reminderSwitch: UISwitch = {
         let uiSwitch = UISwitch()
         uiSwitch.translatesAutoresizingMaskIntoConstraints = false
         return uiSwitch
@@ -142,7 +161,9 @@ class BookRegisterView: UIView {
         super.init(frame: frame)
         backgroundColor = .white
         
-        reminderActivator.addTarget(self, action: #selector(BookRegisterView.setReminderVisibility), for: .valueChanged)
+        reminderSwitch.addTarget(self, action: #selector(BookRegisterView.setReminderVisibility), for: .valueChanged)
+        
+        repeatSwitch.addTarget(self, action: #selector(BookRegisterView.setRepeatVisibility), for: .valueChanged)
         
         let stackLabels: UIStackView = {
             let stackView = UIStackView(arrangedSubviews: [titleLabel, pagesLabel])
@@ -169,7 +190,15 @@ class BookRegisterView: UIView {
         }()
         
         let stackReminder: UIStackView = {
-            let stackView = UIStackView(arrangedSubviews: [reminderActivatorLabel, reminderActivator])
+            let stackView = UIStackView(arrangedSubviews: [reminderActivatorLabel, reminderSwitch])
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            stackView.axis = .horizontal
+            stackView.spacing = 8
+            return stackView
+        }()
+        
+        let stackRepeat: UIStackView = {
+            let stackView = UIStackView(arrangedSubviews: [repeatLabel, repeatSwitch])
             stackView.translatesAutoresizingMaskIntoConstraints = false
             stackView.axis = .horizontal
             stackView.spacing = 8
@@ -188,6 +217,7 @@ class BookRegisterView: UIView {
         addSubview(stackInfo)
         addSubview(stackReminder)
         addSubview(timePicker)
+        addSubview(stackRepeat)
         addSubview(stackRepeatDays)
         addSubview(saveButton)
         
@@ -205,7 +235,10 @@ class BookRegisterView: UIView {
         timePicker.topAnchor.constraint(equalTo: stackReminder.bottomAnchor, constant: 8).isActive = true
         timePicker.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
         timePicker.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
-        stackRepeatDays.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 16).isActive = true
+        stackRepeat.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 16).isActive = true
+        stackRepeat.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
+        stackRepeat.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
+        stackRepeatDays.topAnchor.constraint(equalTo: repeatLabel.bottomAnchor, constant: 8).isActive = true
         stackRepeatDays.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         saveButton.topAnchor.constraint(equalTo: stackRepeatDays.bottomAnchor, constant: 16).isActive = true
         saveButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -215,13 +248,19 @@ class BookRegisterView: UIView {
     @objc func setReminderVisibility() {
         reminderIsVisible = !reminderIsVisible
         timePicker.isEnabled = reminderIsVisible
-        domingo.isEnabled = reminderIsVisible
-        segunda.isEnabled = reminderIsVisible
-        terca.isEnabled = reminderIsVisible
-        quarta.isEnabled = reminderIsVisible
-        quinta.isEnabled = reminderIsVisible
-        sexta.isEnabled = reminderIsVisible
-        sabado.isEnabled = reminderIsVisible
+        repeatLabel.isEnabled = reminderIsVisible
+        repeatSwitch.isEnabled = reminderIsVisible
+    }
+    
+    @objc func setRepeatVisibility() {
+        repeatIsVisible = !repeatIsVisible
+        domingo.isEnabled = repeatIsVisible
+        segunda.isEnabled = repeatIsVisible
+        terca.isEnabled = repeatIsVisible
+        quarta.isEnabled = repeatIsVisible
+        quinta.isEnabled = repeatIsVisible
+        sexta.isEnabled = repeatIsVisible
+        sabado.isEnabled = repeatIsVisible
     }
     
     required init?(coder aDecoder: NSCoder) {

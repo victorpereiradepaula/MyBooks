@@ -30,25 +30,6 @@ class BookRegisterViewController: UIViewController, UIImagePickerControllerDeleg
         view.addSubview(bookRegisterView)
     }
     
-    func createNotifications(inSeconds: TimeInterval, completion: @escaping (_ Success: Bool) -> ()) {
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: false)
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Title"
-        content.body = "body"
-        content.sound = UNNotificationSound.default()
-        
-        let notification = UNNotificationRequest(identifier: "myBooksNotification", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(notification) { (error) in
-            if error != nil {
-                completion(false)
-            } else {
-                completion(true)
-            }
-        }
-    }
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -115,8 +96,26 @@ class BookRegisterViewController: UIViewController, UIImagePickerControllerDeleg
         
         if bookRegisterView.reminderIsVisible {
             let date = bookRegisterView.timePicker.date.timeIntervalSince(Date())
-            print(date)
-            createNotifications(inSeconds: date, completion: { (success) in })
+            createNotifications(inSeconds: 60, completion: { (success) in })
+        }
+    }
+    
+    func createNotifications(inSeconds: TimeInterval, completion: @escaping (_ Success: Bool) -> ()) {
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: true)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Title"
+        content.body = "body"
+        content.sound = UNNotificationSound.default()
+        
+        let notification = UNNotificationRequest(identifier: "myBooksNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(notification) { (error) in
+            if error != nil {
+                completion(false)
+            } else {
+                completion(true)
+            }
         }
     }
 }
