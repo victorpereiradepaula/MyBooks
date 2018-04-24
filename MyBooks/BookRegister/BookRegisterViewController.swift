@@ -48,9 +48,21 @@ class BookRegisterViewController: UIViewController, UIImagePickerControllerDeleg
     
     @objc func saveBook() {
         
+        let realm = try! Realm()
+        
         let title: String = bookRegisterView.titleText.text!
         if title != "" {
+            
+//            let sameBook = realm.objects(Book.self).filter("tile == \(title)")
+//            if sameBook.count != 0 {
+//                let alertView = UIAlertController(title: "Livro já cadastrado", message: "Deseja substituir sobreescrever os dados existentes?", preferredStyle: .actionSheet)
+//                alertView.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in
+//                    return
+//                }))
+//                alertView.addAction(UIAlertAction(title: "Sim", style: .destructive))
+//            }
             book.title = title
+            
         } else {
             let alertView = UIAlertController(title: "Título não informado", message: "Insira o título do livro antes de salvar", preferredStyle: .alert)
             present(alertView, animated: true, completion: nil)
@@ -63,12 +75,20 @@ class BookRegisterViewController: UIViewController, UIImagePickerControllerDeleg
             book.pages = Int(pages)!
         }
         
-        if bookRegisterView.cover.subviews.count != 0 {
-            let imageData: Data = UIImagePNGRepresentation(bookRegisterView.cover.image!)!
-            book.cover = imageData as NSData
+        let image = bookRegisterView.cover.image
+        if image != nil {
+            let imageData: NSData = UIImagePNGRepresentation(image!)! as NSData
+            if imageData.length > 16000000 {
+                bookRegisterView.cover.image = nil
+                let alertView = UIAlertController(title: "Imagem muito grande", message: "Insira uma imagem menor", preferredStyle: .alert)
+                present(alertView, animated: true, completion: nil)
+                alertView.addAction(UIAlertAction(title: "OK", style: .default))
+                return
+            } else {
+                book.cover = imageData
+            }
         }
         
-        let realm = try! Realm()
         try! realm.write {
             realm.add(book, update: true)
         }
