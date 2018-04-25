@@ -22,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let booksListNavigationController = UINavigationController(rootViewController: BooksListTableViewController()) // Cria uma UINavigationController, setanndo o rootViewController como BooksListTableViewController
         
+        UINavigationBar.appearance().barTintColor = .black  // Seta preto como a cor do fundo dos UINavigationBar
+        UINavigationBar.appearance().tintColor = DEFAULT_GREEN // Seta DEFAULT_GREEN como a cor dos botoes dos UINavigationBar
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : DEFAULT_GREEN] // Seta DEFAULT_GREEN como a cor dos titulos dos UINavigationBar
+        
         window = UIWindow(frame: UIScreen.main.bounds) // Cria uma UIWindow com frame do tamanho do retângulo da tela do aparelho
         window?.rootViewController =  booksListNavigationController // Define booksListNavigationController como rootViewController (inicial)
         window?.makeKeyAndVisible() // Torna visível
