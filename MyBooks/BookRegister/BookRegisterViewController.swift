@@ -74,7 +74,7 @@ class BookRegisterViewController: UIViewController {
         let image = bookRegisterView.cover.image
         if image != nil {
             let imageData: NSData = UIImagePNGRepresentation(image!)! as NSData
-            if imageData.length > 16000000 {
+            if imageData.length > INT_16MB {
                 bookRegisterView.cover.image = nil
                 let alertView = UIAlertController(title: "Imagem muito grande", message: "Deseja salvar sem uma imagem?", preferredStyle: .alert)
                 alertView.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in
@@ -109,8 +109,7 @@ class BookRegisterViewController: UIViewController {
         }
         
         if bookRegisterView.isEnabledNotification {
-            let oneMinute: TimeInterval = 60
-            let date = bookRegisterView.notificationView.datePicker.date.timeIntervalSince(Date() + oneMinute)
+            let date = bookRegisterView.notificationView.datePicker.date.timeIntervalSince(Date() + ONE_MINUTE)
             createNotifications(inSeconds: date, completion: { (success) in })
         }
         self.navigationController?.popViewController(animated: true)

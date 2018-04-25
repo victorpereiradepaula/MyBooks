@@ -24,7 +24,7 @@ class BookRegisterView: UIView {
     let titleLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: 18.0)
+        view.font = .boldSystemFont(ofSize: DEFAULT_FONT_SIZE)
         view.text = "Título:"
         view.sizeToFit()
         return view
@@ -40,7 +40,7 @@ class BookRegisterView: UIView {
     let pagesLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: 16.0)
+        view.font = .boldSystemFont(ofSize: SMALL_FONT_SIZE)
         view.text = "Páginas:"
         view.sizeToFit()
         return view
@@ -86,7 +86,7 @@ class BookRegisterView: UIView {
             let view = UIStackView(arrangedSubviews: [stackLabels, stackText])
             view.translatesAutoresizingMaskIntoConstraints = false
             view.axis = .horizontal
-            view.spacing = 8
+            view.spacing = NEAR
             return view
         }()
         
@@ -95,9 +95,9 @@ class BookRegisterView: UIView {
         addSubview(notificationView)
         addSubview(repeatView)
         
-        cover.setSize(width: 100, height: 150)
+        cover.setSize(width: magicWidth, height: magicHeight)
         cover.setAnchors(topAnchor: self.topAnchor, FAR, leftAnchor: self.leftAnchor, FAR)
-        stackLabels.setWidth(65)
+        stackLabels.setWidth(magicLabelWidth)
         stackInfo.setAnchors(topAnchor: cover.topAnchor, leftAnchor: cover.rightAnchor, NEAR, rightAnchor: self.rightAnchor, NEGATIVE_FAR)
         notificationView.setAnchors(topAnchor: cover.bottomAnchor, FAR, leftAnchor: self.leftAnchor, FAR, rightAnchor: self.rightAnchor, NEGATIVE_FAR)
         repeatView.setAnchors(topAnchor: notificationView.bottomAnchor, FAR, leftAnchor: self.leftAnchor, FAR, rightAnchor: self.rightAnchor, NEGATIVE_FAR)

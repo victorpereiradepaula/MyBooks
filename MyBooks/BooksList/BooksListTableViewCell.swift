@@ -20,7 +20,7 @@ class BooksListTableViewCell: UITableViewCell {
     let titleLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: 18.0)
+        view.font = .boldSystemFont(ofSize: DEFAULT_FONT_SIZE)
         view.text = "Título:"
         view.sizeToFit()
         return view
@@ -35,7 +35,7 @@ class BooksListTableViewCell: UITableViewCell {
     let pagesLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: 16.0)
+        view.font = .boldSystemFont(ofSize: SMALL_FONT_SIZE)
         view.text = "Páginas:"
         view.sizeToFit()
         return view
@@ -76,9 +76,9 @@ class BooksListTableViewCell: UITableViewCell {
         addSubview(cover)
         addSubview(stackInfo)
         
-        cover.setSize(width: 100, height: 150)
+        cover.setSize(width: magicWidth, height: magicHeight)
         cover.setAnchors(topAnchor: self.topAnchor, FAR, leftAnchor: self.leftAnchor, FAR)
-        stackLabels.setWidth(65)
+        stackLabels.setWidth(magicLabelWidth)
         stackInfo.setAnchors(topAnchor: cover.topAnchor, leftAnchor: cover.rightAnchor, NEAR, rightAnchor: self.rightAnchor, NEGATIVE_FAR)
         
     }

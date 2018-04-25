@@ -15,7 +15,7 @@ class NotificationView: UIView {
     let notificationLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: 18.0)
+        view.font = .boldSystemFont(ofSize: DEFAULT_FONT_SIZE)
         view.text = "Cadastrar lembrete:"
         view.sizeToFit()
         return view
@@ -30,7 +30,7 @@ class NotificationView: UIView {
     let datePicker: UIDatePicker = {
         let view = UIDatePicker()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.minimumDate = Date()
+        view.datePickerMode = .time
         view.isEnabled = false
         return view
     }()

@@ -16,7 +16,7 @@ class RepeatView: UIView {
     let repeatLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: 16.0)
+        view.font = .boldSystemFont(ofSize: SMALL_FONT_SIZE)
         view.text = "Repetir:"
         view.isEnabled = false
         return view
@@ -114,7 +114,7 @@ class RepeatView: UIView {
         addSubview(stackDays)
         
         stackHeader.setAnchors(topAnchor: self.topAnchor, leftAnchor: self.leftAnchor, rightAnchor: self.rightAnchor)
-        stackDays.setTopAnchor(stackHeader.bottomAnchor, NEAR)
+        stackDays.setTopAnchor(stackHeader.bottomAnchor, FAR)
         stackDays.centerXAnchor.constraint(equalTo: stackHeader.centerXAnchor).isActive = true
         
         let width: CGFloat = stackHeader.frame.width
