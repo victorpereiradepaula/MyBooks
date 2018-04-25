@@ -57,13 +57,41 @@ class BooksListTableViewController: UITableViewController {
         return cell
     }
     
-//    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//
-//    }
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let title = self.books[indexPath.row].title
+        
+        let details = UITableViewRowAction(style: .normal, title: "Detalhes") { action, index in
+            self.navigationController?.pushViewController(BookRegisterViewController(), animated: true)
+        }
+        details.backgroundColor = .black
+        
+        let remove = UITableViewRowAction(style: .destructive, title: "Remover") { action, index in
+            let setFavoriteAlert = UIAlertController(title: "Livro removido", message: "Livro removido com sucesso.", preferredStyle: .alert)
+            setFavoriteAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default){ action in
+                
+                self.tableView.isEditing = false
+                
+                let realm = try! Realm()
+                realm.refresh()
+                try! realm.write {
+                    realm.delete(realm.object(ofType: Book.self, forPrimaryKey: title)!)
+                }
+                self.loadData()
+                
+                tableView.deleteRows(at: [index], with: .automatic)
+                
+            })
+            
+            self.present(setFavoriteAlert, animated: true, completion: nil)
+            
+        }
+        return [remove, details]
+    }
 
     func loadData() {
         books = []
         let realm = try! Realm()
+        realm.refresh()
         books.append(contentsOf: realm.objects(Book.self))
         
         let textView: UILabel = {
@@ -86,5 +114,4 @@ class BooksListTableViewController: UITableViewController {
     @objc func goToRegister() {
         self.navigationController?.pushViewController(BookRegisterViewController(), animated: true)
     }
-
 }
