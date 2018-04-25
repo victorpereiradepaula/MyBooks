@@ -61,7 +61,9 @@ class BooksListTableViewController: UITableViewController {
         let title = self.books[indexPath.row].title
         
         let details = UITableViewRowAction(style: .normal, title: "Detalhes") { action, index in
-            self.navigationController?.pushViewController(BookRegisterViewController(), animated: true)
+            let newBookRegisterViewController = BookRegisterViewController()
+            newBookRegisterViewController.setBook(book: self.books[indexPath.row])
+            self.navigationController?.pushViewController(newBookRegisterViewController, animated: true)
         }
         details.backgroundColor = .black
         

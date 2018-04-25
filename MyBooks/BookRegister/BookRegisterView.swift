@@ -10,261 +10,117 @@ import UIKit
 
 class BookRegisterView: UIView {
 
-    var reminderIsVisible = false
-    var repeatIsVisible = false
-    
-    let repeatLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 16.0)
-        label.text = "Repetir:"
-        label.isEnabled = false
-        label.sizeToFit()
-        return label
-    }()
-    
-    let repeatSwitch: UISwitch = {
-        let uiSwitch = UISwitch()
-        uiSwitch.translatesAutoresizingMaskIntoConstraints = false
-        uiSwitch.isEnabled = false
-        return uiSwitch
-    }()
-    
-    let domingo: UIButton = {
-        let button = UIButton(type: UIButtonType.system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("D", for: UIControlState.normal)
-        button.tintColor = .lightGray
-        button.isEnabled = false
-        return button
-    }()
-    let segunda: UIButton = {
-        let button = UIButton(type: UIButtonType.system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("S", for: UIControlState.normal)
-        button.tintColor = .lightGray
-        button.isEnabled = false
-        return button
-    }()
-    let terca: UIButton = {
-        let button = UIButton(type: UIButtonType.system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("T", for: UIControlState.normal)
-        button.tintColor = .lightGray
-        button.isEnabled = false
-        return button
-    }()
-    let quarta: UIButton = {
-        let button = UIButton(type: UIButtonType.system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Q", for: UIControlState.normal)
-        button.tintColor = .lightGray
-        button.isEnabled = false
-        return button
-    }()
-    let quinta: UIButton = {
-        let button = UIButton(type: UIButtonType.system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Q", for: UIControlState.normal)
-        button.tintColor = .lightGray
-        button.isEnabled = false
-        return button
-    }()
-    let sexta: UIButton = {
-        let button = UIButton(type: UIButtonType.system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("S", for: UIControlState.normal)
-        button.tintColor = .lightGray
-        button.isEnabled = false
-        return button
-    }()
-    let sabado: UIButton = {
-        let button = UIButton(type: UIButtonType.system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("S", for: UIControlState.normal)
-        button.tintColor = .lightGray
-        button.isEnabled = false
-        return button
-    }()
+    var isEnabledNotification = false
+    var isEnabledRepeat = false
     
     var cover: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.isUserInteractionEnabled = true
-        imageView.backgroundColor = .lightGray
-        return imageView
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = true
+        view.backgroundColor = .lightGray
+        return view
     }()
     
     let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 18.0)
-        label.text = "Título:"
-        label.sizeToFit()
-        return label
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.font = .boldSystemFont(ofSize: 18.0)
+        view.text = "Título:"
+        view.sizeToFit()
+        return view
     }()
     
     let titleText: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.borderStyle = .roundedRect
-        return textField
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.borderStyle = .roundedRect
+        return view
     }()
     
     let pagesLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 16.0)
-        label.text = "Páginas:"
-        label.sizeToFit()
-        return label
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.font = .boldSystemFont(ofSize: 16.0)
+        view.text = "Páginas:"
+        view.sizeToFit()
+        return view
     }()
     
     let pagesText: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.borderStyle = .roundedRect
-        return textField
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.borderStyle = .roundedRect
+        return view
     }()
     
-    let reminderActivatorLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 18.0)
-        label.text = "Cadastrar lembrete:"
-        label.sizeToFit()
-        return label
-    }()
+    let notificationView = NotificationView()
     
-    let reminderSwitch: UISwitch = {
-        let uiSwitch = UISwitch()
-        uiSwitch.translatesAutoresizingMaskIntoConstraints = false
-        return uiSwitch
-    }()
+    let repeatView = RepeatView()
     
-    let timePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.minimumDate = Date()
-        datePicker.isEnabled = false
-        return datePicker
-    }()
-    
-    let saveButton: UIButton = {
-        let button = UIButton(type: UIButtonType.system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Salvar", for: UIControlState.normal)
-        return button
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
         
-        reminderSwitch.addTarget(self, action: #selector(BookRegisterView.setReminderVisibility), for: .valueChanged)
+        notificationView.notificationSwitch.addTarget(self, action: #selector(enableNotification), for: .valueChanged)
         
-        repeatSwitch.addTarget(self, action: #selector(BookRegisterView.setRepeatVisibility), for: .valueChanged)
+        repeatView.repeatSwitch.addTarget(self, action: #selector(enableDays), for: .valueChanged)
         
         let stackLabels: UIStackView = {
-            let stackView = UIStackView(arrangedSubviews: [titleLabel, pagesLabel])
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.axis = .vertical
-            stackView.spacing = 8
-            return stackView
+            let view = UIStackView(arrangedSubviews: [titleLabel, pagesLabel])
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.axis = .vertical
+            view.spacing = NEAR
+            return view
         }()
         
         let stackText: UIStackView = {
-            let stackView = UIStackView(arrangedSubviews: [titleText, pagesText])
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.axis = .vertical
-            stackView.spacing = 15
-            return stackView
+            let view = UIStackView(arrangedSubviews: [titleText, pagesText])
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.axis = .vertical
+            view.spacing = FAR
+            return view
         }()
         
         let stackInfo: UIStackView = {
-            let stackView = UIStackView(arrangedSubviews: [stackLabels, stackText])
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.axis = .horizontal
-            stackView.spacing = 8
-            return stackView
-        }()
-        
-        let stackReminder: UIStackView = {
-            let stackView = UIStackView(arrangedSubviews: [reminderActivatorLabel, reminderSwitch])
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.axis = .horizontal
-            stackView.spacing = 8
-            return stackView
-        }()
-        
-        let stackRepeat: UIStackView = {
-            let stackView = UIStackView(arrangedSubviews: [repeatLabel, repeatSwitch])
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.axis = .horizontal
-            stackView.spacing = 8
-            return stackView
-        }()
-        
-        let stackRepeatDays: UIStackView = {
-            let stackView = UIStackView(arrangedSubviews: [domingo, segunda, terca, quarta, quinta, sexta, sabado, domingo])
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.axis = .horizontal
-            stackView.spacing = 8
-            return stackView
+            let view = UIStackView(arrangedSubviews: [stackLabels, stackText])
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.axis = .horizontal
+            view.spacing = 8
+            return view
         }()
         
         addSubview(cover)
         addSubview(stackInfo)
-        addSubview(stackReminder)
-        addSubview(timePicker)
-        addSubview(stackRepeat)
-        addSubview(stackRepeatDays)
-        addSubview(saveButton)
+        addSubview(notificationView)
+        addSubview(repeatView)
         
-        cover.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        cover.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        cover.topAnchor.constraint(equalTo: self.topAnchor, constant: 80).isActive = true
-        cover.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        stackLabels.widthAnchor.constraint(equalToConstant: 65).isActive = true
-        stackInfo.topAnchor.constraint(equalTo: cover.topAnchor).isActive = true
-        stackInfo.leftAnchor.constraint(equalTo: cover.rightAnchor, constant: 8).isActive = true
-        stackInfo.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
-        stackReminder.topAnchor.constraint(equalTo: cover.bottomAnchor, constant: 16).isActive = true
-        stackReminder.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        stackReminder.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
-        timePicker.topAnchor.constraint(equalTo: stackReminder.bottomAnchor, constant: 8).isActive = true
-        timePicker.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        timePicker.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
-        stackRepeat.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 16).isActive = true
-        stackRepeat.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        stackRepeat.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
-        stackRepeatDays.topAnchor.constraint(equalTo: repeatLabel.bottomAnchor, constant: 8).isActive = true
-        stackRepeatDays.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        saveButton.topAnchor.constraint(equalTo: stackRepeatDays.bottomAnchor, constant: 16).isActive = true
-        saveButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        cover.setSize(width: 100, height: 150)
+        cover.setAnchors(topAnchor: self.topAnchor, FAR, leftAnchor: self.leftAnchor, FAR)
+        stackLabels.setWidth(65)
+        stackInfo.setAnchors(topAnchor: cover.topAnchor, leftAnchor: cover.rightAnchor, NEAR, rightAnchor: self.rightAnchor, NEGATIVE_FAR)
+        notificationView.setAnchors(topAnchor: cover.bottomAnchor, FAR, leftAnchor: self.leftAnchor, FAR, rightAnchor: self.rightAnchor, NEGATIVE_FAR)
+        repeatView.setAnchors(topAnchor: notificationView.bottomAnchor, FAR, leftAnchor: self.leftAnchor, FAR, rightAnchor: self.rightAnchor, NEGATIVE_FAR)
         
     }
     
-    @objc func setReminderVisibility() {
-        reminderIsVisible = !reminderIsVisible
-        timePicker.isEnabled = reminderIsVisible
-        repeatLabel.isEnabled = reminderIsVisible
-        repeatSwitch.isEnabled = reminderIsVisible
+    @objc func enableNotification() {
+        isEnabledNotification = !isEnabledNotification
+        notificationView.enableNotification()
+        repeatView.enableHeader()
     }
     
-    @objc func setRepeatVisibility() {
-        repeatIsVisible = !repeatIsVisible
-        domingo.isEnabled = repeatIsVisible
-        segunda.isEnabled = repeatIsVisible
-        terca.isEnabled = repeatIsVisible
-        quarta.isEnabled = repeatIsVisible
-        quinta.isEnabled = repeatIsVisible
-        sexta.isEnabled = repeatIsVisible
-        sabado.isEnabled = repeatIsVisible
+    @objc func enableDays() {
+        repeatView.enableDays()
+    }
+    
+    func setValues(book: Book) {
+        pagesText.text = String(book.pages)
+        cover.image = UIImage(data: book.cover as Data)
+        titleText.text = book.title
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
