@@ -14,6 +14,7 @@ class BookRegisterViewController: UIViewController {
 
     let bookRegisterView = BookRegisterView()
     let book = Book()
+    let notification = MyNotification()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,64 +102,27 @@ class BookRegisterViewController: UIViewController {
         
         let newBook = Book()
         newBook.setValues(title: book.title, pages: book.pages, cover: book.cover)
-        
+        let newNotification = MyNotification()
         if bookRegisterView.isEnabledNotification {
             let datePicker = bookRegisterView.notificationView.datePicker
-            let timeInterval: TimeInterval
-            if datePicker.date.timeIntervalSince1970 < Date().timeIntervalSince1970 {
-                timeInterval = ONE_DAY + datePicker.date.timeIntervalSince1970
-                print(timeInterval)
-            } else {
-                timeInterval = bookRegisterView.notificationView.datePicker.date.timeIntervalSince(Date())
-                print(timeInterval)
-            }
-            
+            let date = datePicker.date
+            let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+            let hour = components.hour!
+            let minute = components.minute!
             let identifier = "\(self.book.title)_Identifier"
             let repeats = bookRegisterView.isEnabledRepeat
-            newBook.setNotification(notificationIdentifier: identifier, timeInterval: timeInterval, repeatDay: repeats,repeatDomingo: bookRegisterView.isDomingo, repeatSegunda: bookRegisterView.isSegunda, repeatTerca: bookRegisterView.isTerca, repeatQuarta: bookRegisterView.isQuarta, repeatQuinta: bookRegisterView.isQuinta, repeatSexta: bookRegisterView.isSexta, repeatSabado: bookRegisterView.isSabado)
-            createNotifications(identifier: identifier, inSeconds: timeInterval, repeats: repeats, completion: { (success) in })
+            let weekDays = bookRegisterView.weekDays
+            
+            newNotification.setNotification(notificationIdentifier: identifier, hour: hour, minute: minute, repeatDay: repeats, weekDays: weekDays)
         }
         
-        let realm = try! Realm()
-        realm.refresh()
-        try! realm.write {
-            realm.add(newBook, update: true)
-        }
+        BDHelper.add(book: book, notification: newNotification)
         
         self.navigationController?.popViewController(animated: true)
     }
     
-    
-    func createNotifications(identifier: String, inSeconds: TimeInterval, repeats: Bool, completion: @escaping (_ Success: Bool) -> ()) {
-        
-        if repeats {
-//            let triggerWeekly = Calendar.current.dateComponents([.weekday,.hour,.minute,.second], from: date)
-            
-//            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerWeekly, repeats: true)
-        } else {
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: repeats)
-        }
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: repeats)
-        
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Hora de ler \(self.book.title)"
-        content.body = "Acesse o MyBooks e confira seus livros."
-        content.sound = UNNotificationSound.default()
-        
-        let notification = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(notification) { (error) in
-            if error != nil {
-                completion(false)
-            } else {
-                completion(true)
-            }
-        }
-    }
-    
     func setBook(book: Book) {
-        bookRegisterView.setValues(book: book)
+        bookRegisterView.setValues(book: book, notification: notification)
     }
 }
 

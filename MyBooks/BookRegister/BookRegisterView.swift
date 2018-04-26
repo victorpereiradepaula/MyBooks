@@ -12,13 +12,7 @@ class BookRegisterView: UIView {
 
     var isEnabledNotification = false
     var isEnabledRepeat = false
-    var isDomingo = false
-    var isSegunda = false
-    var isTerca = false
-    var isQuarta = false
-    var isQuinta = false
-    var isSexta = false
-    var isSabado = false
+    var weekDays = [false, false, false, false, false, false, false]
     
     var cover: UIImageView = {
         let view = UIImageView()
@@ -130,67 +124,79 @@ class BookRegisterView: UIView {
     }
     
     @objc func repeatDomingo() {
-        isDomingo = !isDomingo
-        repeatView.domingo.setColor(status: isDomingo)
+        weekDays[0] = !weekDays[0]
+        repeatView.domingo.setColor(status: weekDays[0])
     }
     @objc func repeatSegunda() {
-        isSegunda = !isSegunda
-        repeatView.segunda.setColor(status: isSegunda)
+        weekDays[1] = !weekDays[1]
+        repeatView.segunda.setColor(status: weekDays[1])
     }
     @objc func repeatTerca() {
-        isTerca = !isTerca
-        repeatView.terca.setColor(status: isTerca)
+        weekDays[2] = !weekDays[2]
+        repeatView.terca.setColor(status: weekDays[2])
     }
     @objc func repeatQuarta() {
-        isQuarta = !isQuarta
-        repeatView.quarta.setColor(status: isQuarta)
+        weekDays[3] = !weekDays[3]
+        repeatView.quarta.setColor(status: weekDays[3])
     }
     @objc func repeatQuinta() {
-        isQuinta = !isQuinta
-        repeatView.quinta.setColor(status: isQuinta)
+        weekDays[4] = !weekDays[4]
+        repeatView.quinta.setColor(status: weekDays[4])
     }
     @objc func repeatSexta() {
-        isSexta = !isSexta
-        repeatView.sexta.setColor(status: isSexta)
+        weekDays[5] = !weekDays[5]
+        repeatView.sexta.setColor(status: weekDays[5])
     }
     @objc func repeatSabado() {
-        isSabado = !isSabado
-        repeatView.sabado.setColor(status: isSabado)
+        weekDays[6] = !weekDays[6]
+        repeatView.sabado.setColor(status: weekDays[6])
     }
     
-    func setValues(book: Book) {
+    func setValues(book: Book, notification: MyNotification) {
+        
         pagesText.text = String(book.pages)
         cover.image = UIImage(data: book.cover as Data)
         titleText.text = book.title
-        let notification = book.notificationIdentifier
-        if notification != "" {
+        
+        let notificationIdentifier = book.notificationIdentifier
+        if notificationIdentifier != "" {
+            
             notificationView.isEnabledNotification = true
-            notificationView.datePicker.setDate(Date(timeIntervalSince1970: book.timeInterval), animated: false)
+            let hour = notification.hour
+            let minute = notification.minute
+            var dateComponents = DateComponents()
+            dateComponents.hour = hour
+            dateComponents.minute = minute
+            dateComponents.calendar = Calendar.current
+            
+            let newDate = dateComponents.date!
+            notificationView.datePicker.setDate(newDate, animated: false)
             notificationView.enableNotification()
-            if book.repeatDay {
+            
+            if notification.repeatDay {
                 repeatView.enableHeader()
                 repeatView.repeatSwitch.isOn = true
                 repeatView.enableDays()
                 
-                if book.repeatDomingo {
+                if notification.domingo {
                  repeatDomingo()
                 }
-                if book.repeatSegunda {
+                if notification.segunda {
                     repeatSegunda()
                 }
-                if book.repeatTerca {
+                if notification.terca {
                     repeatTerca()
                 }
-                if book.repeatQuarta {
+                if notification.quarta {
                     repeatQuarta()
                 }
-                if book.repeatQuinta {
+                if notification.quinta {
                     repeatQuinta()
                 }
-                if book.repeatSexta {
+                if notification.sexta {
                     repeatSexta()
                 }
-                if book.repeatSabado {
+                if notification.sabado {
                     repeatSabado()
                 }
             }

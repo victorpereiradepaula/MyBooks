@@ -23,6 +23,7 @@
 		5C227DAD2090CDB8000D68BB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C227DAC2090CDB8000D68BB /* Constants.swift */; };
 		5C227DAF209147BB000D68BB /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C227DAE209147BB000D68BB /* UIExtensions.swift */; };
 		5C2B6A322091F19B00EF94C0 /* BDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B6A312091F19B00EF94C0 /* BDHelper.swift */; };
+		5C2B6A3420921D9E00EF94C0 /* MyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B6A3320921D9E00EF94C0 /* MyNotification.swift */; };
 		5C739B62208EA38E00694E69 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C739B61208EA38E00694E69 /* Book.swift */; };
 		5C94CB52209012110060BC42 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94CB51209012110060BC42 /* Constraints.swift */; };
 		5FF7EA3CC1A799B8F9E79D47 /* Pods_MyBooksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBA76E17FF7FA2C22FE0027 /* Pods_MyBooksTests.framework */; };
@@ -67,6 +68,7 @@
 		5C227DAC2090CDB8000D68BB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5C227DAE209147BB000D68BB /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		5C2B6A312091F19B00EF94C0 /* BDHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BDHelper.swift; sourceTree = "<group>"; };
+		5C2B6A3320921D9E00EF94C0 /* MyNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotification.swift; sourceTree = "<group>"; };
 		5C739B61208EA38E00694E69 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		5C739B64208EC45300694E69 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		5C94CB51209012110060BC42 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				5C1755A3208E4A9F00F6E416 /* LaunchScreen.storyboard */,
 				5C1755A6208E4A9F00F6E416 /* Info.plist */,
 				5C739B61208EA38E00694E69 /* Book.swift */,
+				5C2B6A3320921D9E00EF94C0 /* MyNotification.swift */,
 			);
 			path = MyBooks;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				5C1755CB208E4BB800F6E416 /* BookRegisterView.swift in Sources */,
 				5C227DAD2090CDB8000D68BB /* Constants.swift in Sources */,
 				5C17559B208E4A9E00F6E416 /* AppDelegate.swift in Sources */,
+				5C2B6A3420921D9E00EF94C0 /* MyNotification.swift in Sources */,
 				5C1755CF208E4C1B00F6E416 /* BooksListTableViewController.swift in Sources */,
 				5C227DA920908093000D68BB /* RepeatView.swift in Sources */,
 				5C227DAF209147BB000D68BB /* UIExtensions.swift in Sources */,

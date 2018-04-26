@@ -53,14 +53,17 @@ class BooksListTableViewController: UITableViewController {
         cell.pagesText.text = String(book.pages)
         let cover = book.cover
         cell.cover.image = UIImage(data: cover as Data)
-        let isNotification = !(book.notificationIdentifier != "")
+        let notifications = BDHelper.getNotification(key: book.notificationIdentifier)
+        let isNotification = !notifications.isEmpty
         cell.clock.isHidden = isNotification
         cell.clockText.isHidden = isNotification
         if isNotification {
-            let date = Date(timeIntervalSince1970: book.timeInterval)
-            let dateFormater = DateFormatter()
-            dateFormater.setLocalizedDateFormatFromTemplate("HH:MM")
-            cell.clockText.text = dateFormater.string(from: date)
+            let notification = notifications[0]
+            let hour = String(notification.hour)
+            let minute = String(notification.minute)
+            let dateFormater = "\(hour):\(minute)"
+            print(dateFormater)
+            cell.clockText.text = dateFormater
         }
         cell.separatorInset = UIEdgeInsets.zero
         

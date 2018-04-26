@@ -74,18 +74,15 @@ class BooksListTableViewCell: UITableViewCell {
         
         addSubview(cover)
         addSubview(stackInfo)
-        
+        addSubview(clock)
+        addSubview(clockText)
         
         cover.setSize(width: IMAGE_WIDTH, height: IMAGE_HEIGHT)
         cover.setAnchors(topAnchor: self.topAnchor, FAR, leftAnchor: self.leftAnchor, FAR)
         stackLabels.setWidth(magicLabelWidth)
         stackInfo.setAnchors(topAnchor: cover.topAnchor, leftAnchor: cover.rightAnchor, NEAR, rightAnchor: self.rightAnchor, NEGATIVE_FAR)
-        
-        addSubview(clock)
         clock.setAnchors(topAnchor: stackInfo.bottomAnchor, 35, leftAnchor: cover.rightAnchor, NEAR)
         clock.setSize(width: 25, height: 25)
-        
-        addSubview(clockText)
         clockText.setAnchors(topAnchor: clock.topAnchor, leftAnchor: clock.rightAnchor, 8)
     }
     
