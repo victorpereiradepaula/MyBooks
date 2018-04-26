@@ -61,28 +61,22 @@ class BDHelper {
                     let date = calendar.date(from: components)
                     
                     let triggerWeekly = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date!)
-                    settupNotification(notificationIdentifier: identifier, contents: content, dateComponents: triggerWeekly, repeats: repeats, completion: { (success) in })
+                    settupNotification(notificationIdentifier: identifier, contents: content, dateComponents: triggerWeekly, repeats: repeats)
                 }
             }
         } else {
-            settupNotification(notificationIdentifier: identifier, contents: content, dateComponents: components, repeats: repeats, completion: { (success) in })
+            settupNotification(notificationIdentifier: identifier, contents: content, dateComponents: components, repeats: repeats)
         }
         
         
     }
     
-    static private func settupNotification(notificationIdentifier: String, contents: UNMutableNotificationContent, dateComponents: DateComponents, repeats: Bool,  completion: @escaping (_ Success: Bool) -> ()) {
+    static private func settupNotification(notificationIdentifier: String, contents: UNMutableNotificationContent, dateComponents: DateComponents, repeats: Bool) {
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: repeats)
         
         let notification = UNNotificationRequest(identifier: notificationIdentifier, content: contents, trigger: trigger)
         
-        UNUserNotificationCenter.current().add(notification) { (error) in
-            if error != nil {
-                completion(false)
-            } else {
-                completion(true)
-            }
-        }
+        UNUserNotificationCenter.current().add(notification)
     }
     
     static func remove(book: Book) {

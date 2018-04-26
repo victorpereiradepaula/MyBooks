@@ -46,8 +46,9 @@ class BookRegisterViewController: UIViewController {
     
     
     func validateBookTitle(){
+        
         let title: String = bookRegisterView.titleText.text!
-        if title != "" {
+        if !title.isEmpty {
             
             let exists = BDHelper.exists(key: title)
             if exists {
@@ -90,8 +91,9 @@ class BookRegisterViewController: UIViewController {
             }
             book.cover = imageData
             save()
+        } else {
+            save()
         }
-        save()
     }
     
     func save() {
@@ -103,6 +105,7 @@ class BookRegisterViewController: UIViewController {
         let newBook = Book()
         newBook.setValues(title: book.title, pages: book.pages, cover: book.cover)
         let newNotification = MyNotification()
+        
         if bookRegisterView.isEnabledNotification {
             let datePicker = bookRegisterView.notificationView.datePicker
             let date = datePicker.date
