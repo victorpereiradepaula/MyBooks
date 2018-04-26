@@ -47,10 +47,9 @@ class BookRegisterViewController: UIViewController {
     func validateBookTitle(){
         let title: String = bookRegisterView.titleText.text!
         if title != "" {
-            let realm = try! Realm()
-            realm.refresh()
-            let sameBook = realm.objects(Book.self).filter("title == '\(title)'")
-            if sameBook.count == 1 {
+            
+            let exists = BDHelper.exists(key: title)
+            if exists {
                 let alertView = UIAlertController(title: "Livro já cadastrado", message: "Deseja substituir sobreescrever os dados existentes?", preferredStyle: .alert)
                 alertView.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in
                     return
@@ -186,7 +185,6 @@ extension BookRegisterViewController: UIImagePickerControllerDelegate, UINavigat
     
 }
 
-// Extension para separar 
 extension BookRegisterViewController: UIGestureRecognizerDelegate {
     func setupGestures() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openPhotoLibrary))

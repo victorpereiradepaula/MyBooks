@@ -12,22 +12,13 @@ class BooksListTableViewCell: UITableViewCell {
     
     var cover: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isUserInteractionEnabled = true
-        view.backgroundColor = DEFAULT_GRAY
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.cornerRadius = 3
-        view.layer.borderWidth = 1
+        view.setDefaults()
         return view
     }()
     
     let titleLabel: UILabel = {
         let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: DEFAULT_FONT_SIZE)
-        view.text = "Título:"
-        view.sizeToFit()
+        view.setDefaults(text: "Título:")
         return view
     }()
     
@@ -39,10 +30,7 @@ class BooksListTableViewCell: UITableViewCell {
     
     let pagesLabel: UILabel = {
         let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: SMALL_FONT_SIZE)
-        view.text = "Páginas:"
-        view.sizeToFit()
+        view.setSmall(text: "Páginas:")
         return view
     }()
     
@@ -70,23 +58,17 @@ class BooksListTableViewCell: UITableViewCell {
         
         let stackLabels: UIStackView = {
             let view = UIStackView(arrangedSubviews: [titleLabel, pagesLabel])
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.axis = .vertical
-            view.spacing = NEAR
+            view.setDefaults(axis: .vertical)
             return view
         }()
         let stackText: UIStackView = {
             let view = UIStackView(arrangedSubviews: [titleText, pagesText])
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.axis = .vertical
-            view.spacing = FAR
+            view.setDefaults(axis: .vertical, spacing: FAR)
             return view
         }()
         let stackInfo: UIStackView = {
             let view = UIStackView(arrangedSubviews: [stackLabels, stackText])
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.axis = .horizontal
-            view.spacing = NEAR
+            view.setDefaults(axis: .horizontal)
             return view
         }()
         
@@ -94,7 +76,7 @@ class BooksListTableViewCell: UITableViewCell {
         addSubview(stackInfo)
         
         
-        cover.setSize(width: magicWidth, height: magicHeight)
+        cover.setSize(width: IMAGE_WIDTH, height: IMAGE_HEIGHT)
         cover.setAnchors(topAnchor: self.topAnchor, FAR, leftAnchor: self.leftAnchor, FAR)
         stackLabels.setWidth(magicLabelWidth)
         stackInfo.setAnchors(topAnchor: cover.topAnchor, leftAnchor: cover.rightAnchor, NEAR, rightAnchor: self.rightAnchor, NEGATIVE_FAR)

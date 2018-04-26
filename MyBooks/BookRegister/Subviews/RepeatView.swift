@@ -15,96 +15,49 @@ class RepeatView: UIView {
     
     let repeatLabel: UILabel = {
         let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: SMALL_FONT_SIZE)
-        view.text = "Repetir:"
-        view.isEnabled = false
+        view.setSmall(text: "Repetir:")
         return view
     }()
     
     let repeatSwitch: UISwitch = {
         let view = UISwitch()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.onTintColor = DEFAULT_GREEN
-        view.isEnabled = false
+        view.setDefaults()
         return view
     }()
 
     let domingo: UIButton = {
         let view = UIButton(type: UIButtonType.system)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("D", for: UIControlState.normal)
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 3
-        view.tintColor = .lightGray
-        view.isEnabled = false
+        view.setDefaults(title: "D")
         return view
     }()
     let segunda: UIButton = {
         let view = UIButton(type: UIButtonType.system)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("S", for: UIControlState.normal)
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 3
-        view.tintColor = .lightGray
-        view.isEnabled = false
+        view.setDefaults(title: "S")
         return view
     }()
     let terca: UIButton = {
         let view = UIButton(type: UIButtonType.system)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("T", for: UIControlState.normal)
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 3
-        view.tintColor = .lightGray
-        view.isEnabled = false
+        view.setDefaults(title: "T")
         return view
     }()
     let quarta: UIButton = {
         let view = UIButton(type: UIButtonType.system)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("Q", for: UIControlState.normal)
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 3
-        view.tintColor = .lightGray
-        view.isEnabled = false
+        view.setDefaults(title: "Q")
         return view
     }()
     let quinta: UIButton = {
         let view = UIButton(type: UIButtonType.system)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("Q", for: UIControlState.normal)
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 3
-        view.tintColor = .lightGray
-        view.isEnabled = false
+        view.setDefaults(title: "Q")
         return view
     }()
     let sexta: UIButton = {
         let view = UIButton(type: UIButtonType.system)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("S", for: UIControlState.normal)
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 3
-        view.tintColor = .lightGray
-        view.isEnabled = false
+        view.setDefaults(title: "S")
         return view
     }()
     let sabado: UIButton = {
         let view = UIButton(type: UIButtonType.system)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("S", for: UIControlState.normal)
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 3
-        view.tintColor = .lightGray
-        view.isEnabled = false
+        view.setDefaults(title: "S")
         return view
     }()
     
@@ -114,18 +67,14 @@ class RepeatView: UIView {
         
         let stackHeader: UIStackView = {
             let view = UIStackView(arrangedSubviews: [repeatLabel, repeatSwitch])
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.axis = .horizontal
-            view.spacing = NEAR
+            view.setDefaults(axis: .horizontal)
             return view
         }()
         
         
         let stackDays: UIStackView = {
             let view = UIStackView(arrangedSubviews: [domingo, segunda, terca, quarta, quinta, sexta, sabado])
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.axis = .horizontal
-            view.spacing = NEAR
+            view.setDefaults(axis: .horizontal)
             return view
         }()
         
@@ -134,7 +83,7 @@ class RepeatView: UIView {
         
         stackHeader.setAnchors(topAnchor: self.topAnchor, leftAnchor: self.leftAnchor, rightAnchor: self.rightAnchor)
         stackDays.setTopAnchor(stackHeader.bottomAnchor, FAR)
-        stackDays.centerXAnchor.constraint(equalTo: stackHeader.centerXAnchor).isActive = true
+        stackDays.centerX(stackHeader)
         
         let width: CGFloat = stackHeader.frame.width
         let height: CGFloat = 61 // stackDays.frame.height + stackHeader.frame.height

@@ -76,57 +76,39 @@ class BooksListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let book = self.books[indexPath.row]
-        let title = book.title
         
         let remove = UITableViewRowAction(style: .destructive, title: "Remover") { action, index in
-            let setFavoriteAlert = UIAlertController(title: "Livro removido", message: "Livro removido com sucesso.", preferredStyle: .alert)
-            setFavoriteAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default){ action in
-                
-                self.tableView.isEditing = false
-                
-                let identifier = book.notificationIdentifier
-                if(identifier != "") {
-                    UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [identifier])
-                }
-                
-                let realm = try! Realm()
-                realm.refresh()
-                try! realm.write {
-                    realm.delete(realm.object(ofType: Book.self, forPrimaryKey: title)!)
-                }
-                self.loadData()
-                
-                tableView.deleteRows(at: [index], with: .automatic)
-                
-            })
             
-            self.present(setFavoriteAlert, animated: true, completion: nil)
+                self.tableView.isEditing = false
+            
+                BDHelper.remove(book: book)
+                self.loadData()
+                tableView.deleteRows(at: [index], with: .automatic)
+            
+                self.tableView.isEditing = true
             
         }
         return [remove]
     }
 
     func loadData() {
-        books = []
-        let realm = try! Realm()
-        realm.refresh()
-        books.append(contentsOf: realm.objects(Book.self))
+        books = BDHelper.getBooks()
         
-        let textView: UILabel = {
-            let label = UILabel()
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.textAlignment = .center
-            return label
+        
+        let messageLabel: UILabel = {
+            let view = UILabel()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.textAlignment = .center
+            return view
         }()
         
-        if books.count == 0 {
-           textView.text = "Nenhum livro cadastrado"
+        if books.isEmpty {
+           messageLabel.text = "Nenhum livro cadastrado"
         } else {
-           textView.text = ""
+           messageLabel.text = ""
         }
-        self.tableView.tableFooterView = textView
-    self.tableView.tableFooterView?.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
-    self.tableView.tableFooterView?.centerYAnchor.constraint(equalTo: tableView.centerYAnchor).isActive = true
+        self.tableView.tableFooterView = messageLabel
+        self.tableView.tableFooterView?.center(tableView)
     }
     
     @objc func goToRegister() {

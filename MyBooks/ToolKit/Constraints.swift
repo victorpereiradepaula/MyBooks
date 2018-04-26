@@ -10,6 +10,23 @@ import UIKit
 
 extension UIView {
     
+    // Centra no mesmo ponto que a View passada por parametro esta centrada
+    func center(_ view: UIView) {
+        self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    // Define o centro do eixo X igual ao da View passada por parametro
+    func centerX(_ view: UIView) {
+        self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    // Define o centro do eixo X igual ao da View passada por parametro
+    func centerY(_ view: UIView) {
+        self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    // Top, Left, Right e Bottom iguais os da View passada como parametro
     func setEqualsConstraints(_  view: UIView) {
         self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         self.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true

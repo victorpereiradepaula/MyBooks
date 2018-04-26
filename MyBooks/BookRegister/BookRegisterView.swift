@@ -22,12 +22,7 @@ class BookRegisterView: UIView {
     
     var cover: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isUserInteractionEnabled = true
-        view.backgroundColor = DEFAULT_GRAY
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.cornerRadius = 3
-        view.layer.borderWidth = 1
+        view.setDefaults()
         return view
     }()
     
@@ -41,34 +36,25 @@ class BookRegisterView: UIView {
     
     let titleLabel: UILabel = {
         let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: DEFAULT_FONT_SIZE)
-        view.text = "Título:"
-        view.sizeToFit()
+        view.setDefaults(text: "Título:")
         return view
     }()
     
     let titleText: UITextField = {
         let view = UITextField()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.borderStyle = .roundedRect
+        view.setDefaults(keyboard: .default)
         return view
     }()
     
     let pagesLabel: UILabel = {
         let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: SMALL_FONT_SIZE)
-        view.text = "Páginas:"
-        view.sizeToFit()
+        view.setSmall(text: "Páginas:")
         return view
     }()
     
     let pagesText: UITextField = {
         let view = UITextField()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.keyboardType = .numberPad
-        view.borderStyle = .roundedRect
+        view.setDefaults(keyboard: .numberPad)
         return view
     }()
     
@@ -79,6 +65,8 @@ class BookRegisterView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        titleText.delegate = self
+        pagesText.delegate = self
         backgroundColor = .white
         
         repeatView.translatesAutoresizingMaskIntoConstraints = false
@@ -98,25 +86,19 @@ class BookRegisterView: UIView {
         
         let stackLabels: UIStackView = {
             let view = UIStackView(arrangedSubviews: [titleLabel, pagesLabel])
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.axis = .vertical
-            view.spacing = NEAR
+            view.setDefaults(axis: .vertical)
             return view
         }()
         
         let stackText: UIStackView = {
             let view = UIStackView(arrangedSubviews: [titleText, pagesText])
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.axis = .vertical
-            view.spacing = FAR
+            view.setDefaults(axis: .vertical, spacing: FAR)
             return view
         }()
         
         let stackInfo: UIStackView = {
             let view = UIStackView(arrangedSubviews: [stackLabels, stackText])
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.axis = .horizontal
-            view.spacing = NEAR
+            view.setDefaults(axis: .horizontal)
             return view
         }()
         
@@ -126,7 +108,7 @@ class BookRegisterView: UIView {
         addSubview(notificationView)
         addSubview(repeatView)
         
-        cover.setSize(width: magicWidth, height: magicHeight)
+        cover.setSize(width: IMAGE_WIDTH, height: IMAGE_HEIGHT)
         cover.setAnchors(topAnchor: self.topAnchor, FAR, leftAnchor: self.leftAnchor, FAR)
         plusImage.setSize(width: 40, height: 40)
         plusImage.setAnchors(topAnchor: cover.topAnchor, 4, rightAnchor: cover.rightAnchor, -4)
@@ -218,4 +200,30 @@ class BookRegisterView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// Esconder o teclado
+extension BookRegisterView: UITextFieldDelegate {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == titleText {
+            pagesText.becomeFirstResponder()
+        } else if textField == pagesText {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == pagesText {
+            let length = textField.text?.count
+            return length! < 5
+        }
+        return true
+    }
+
 }

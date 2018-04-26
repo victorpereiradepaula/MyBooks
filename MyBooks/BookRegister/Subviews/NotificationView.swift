@@ -14,25 +14,19 @@ class NotificationView: UIView {
     
     let notificationLabel: UILabel = {
         let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .boldSystemFont(ofSize: DEFAULT_FONT_SIZE)
-        view.text = "Cadastrar lembrete:"
-        view.sizeToFit()
+        view.setDefaults(text: "Cadastrar lembrete:")
         return view
     }()
     
     let notificationSwitch: UISwitch = {
         let view = UISwitch()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.onTintColor = DEFAULT_GREEN
+        view.setDefaults(enabled: true)
         return view
     }()
     
     let datePicker: UIDatePicker = {
         let view = UIDatePicker()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.datePickerMode = .time
-        view.isEnabled = false
+        view.setDefaults()
         return view
     }()
     
@@ -42,19 +36,13 @@ class NotificationView: UIView {
         
         let stackHeader: UIStackView = {
             let view = UIStackView(arrangedSubviews: [notificationLabel, notificationSwitch])
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.isUserInteractionEnabled = true
-            view.axis = .horizontal
-            view.spacing = NEAR
+            view.setDefaults(axis: .horizontal)
             return view
         }()
         
         let stackNotification: UIStackView = {
             let view = UIStackView(arrangedSubviews: [stackHeader, datePicker])
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.isUserInteractionEnabled = true
-            view.axis = .vertical
-            view.spacing = NEAR
+            view.setDefaults(axis: .vertical)
             return view
         }()
         

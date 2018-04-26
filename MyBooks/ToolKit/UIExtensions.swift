@@ -12,12 +12,85 @@ extension UIButton {
     func setColor(status: Bool) {
         if status {
             self.tintColor = .white
-            self.backgroundColor = DEFAULT_GREEN
-            self.layer.borderColor = DEFAULT_GREEN.cgColor
+            self.backgroundColor = GREEN
+            self.layer.borderColor = GREEN.cgColor
         } else {
             self.tintColor = .lightGray
             self.backgroundColor = .white
             self.layer.borderColor = UIColor.lightGray.cgColor
         }
+    }
+    
+    func setDefaults(title: String) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.setTitle(title, for: UIControlState.normal)
+        self.layer.cornerRadius = CORNER_RADIUS
+        self.layer.borderWidth = BORDER_WIDTH
+        self.tintColor = .lightGray
+        self.isEnabled = false
+    }
+}
+
+extension UILabel {
+    func setDefaults(text: String) {
+        self.font = .boldSystemFont(ofSize: DEFAULT_FONT_SIZE)
+        self.setDefaults()
+        self.text = text
+    }
+   
+    func setSmall(text: String) {
+        self.font = .boldSystemFont(ofSize: SMALL_FONT_SIZE)
+        self.setDefaults()
+        self.text = text
+    }
+    
+    private func setDefaults() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.sizeToFit()
+    }
+}
+
+extension UITextField {
+    func setDefaults(keyboard: UIKeyboardType) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.borderStyle = .roundedRect
+        self.keyboardType = keyboard
+    }
+}
+
+extension UIDatePicker {
+    func setDefaults() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.datePickerMode = .time
+        self.isEnabled = false
+    }
+}
+
+extension UISwitch  {
+    func setDefaults(enabled: Bool = false) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.onTintColor = GREEN
+        self.isEnabled = enabled
+    }
+}
+
+extension UIStackView {
+    func setDefaults(axis: UILayoutConstraintAxis, spacing: CGFloat = NEAR) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.axis = axis
+        self.spacing = spacing
+    }
+}
+
+extension UIImageView {
+    func setDefaults() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.isUserInteractionEnabled = true
+        self.backgroundColor = GRAY
+        self.layer.cornerRadius = CORNER_RADIUS
+        self.layer.borderWidth = BORDER_WIDTH
     }
 }
