@@ -47,12 +47,21 @@ class BooksListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "booksCellIdentifier", for: indexPath) as! BooksListTableViewCell
         
         let index = indexPath.row
-    
-        cell.titleText.text = books[index].title
-        cell.pagesText.text = String(books[index].pages)
-        let cover = books[index].cover
-        cell.cover.image = UIImage(data: cover as Data)
+        let book = books[index]
         
+        cell.titleText.text = book.title
+        cell.pagesText.text = String(book.pages)
+        let cover = book.cover
+        cell.cover.image = UIImage(data: cover as Data)
+        let isNotification = !(book.notificationIdentifier != "")
+        cell.clock.isHidden = isNotification
+        cell.clockText.isHidden = isNotification
+        if isNotification {
+            let date = Date(timeIntervalSince1970: book.timeInterval)
+            let dateFormater = DateFormatter()
+            dateFormater.setLocalizedDateFormatFromTemplate("HH:MM")
+            cell.clockText.text = dateFormater.string(from: date)
+        }
         cell.separatorInset = UIEdgeInsets.zero
         
         return cell

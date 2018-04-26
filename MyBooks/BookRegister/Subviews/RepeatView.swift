@@ -25,6 +25,7 @@ class RepeatView: UIView {
     let repeatSwitch: UISwitch = {
         let view = UISwitch()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.onTintColor = DEFAULT_GREEN
         view.isEnabled = false
         return view
     }()
@@ -33,6 +34,9 @@ class RepeatView: UIView {
         let view = UIButton(type: UIButtonType.system)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setTitle("D", for: UIControlState.normal)
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 3
         view.tintColor = .lightGray
         view.isEnabled = false
         return view
@@ -41,6 +45,9 @@ class RepeatView: UIView {
         let view = UIButton(type: UIButtonType.system)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setTitle("S", for: UIControlState.normal)
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 3
         view.tintColor = .lightGray
         view.isEnabled = false
         return view
@@ -49,6 +56,9 @@ class RepeatView: UIView {
         let view = UIButton(type: UIButtonType.system)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setTitle("T", for: UIControlState.normal)
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 3
         view.tintColor = .lightGray
         view.isEnabled = false
         return view
@@ -57,6 +67,9 @@ class RepeatView: UIView {
         let view = UIButton(type: UIButtonType.system)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setTitle("Q", for: UIControlState.normal)
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 3
         view.tintColor = .lightGray
         view.isEnabled = false
         return view
@@ -65,6 +78,9 @@ class RepeatView: UIView {
         let view = UIButton(type: UIButtonType.system)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setTitle("Q", for: UIControlState.normal)
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 3
         view.tintColor = .lightGray
         view.isEnabled = false
         return view
@@ -73,6 +89,9 @@ class RepeatView: UIView {
         let view = UIButton(type: UIButtonType.system)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setTitle("S", for: UIControlState.normal)
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 3
         view.tintColor = .lightGray
         view.isEnabled = false
         return view
@@ -81,6 +100,9 @@ class RepeatView: UIView {
         let view = UIButton(type: UIButtonType.system)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setTitle("S", for: UIControlState.normal)
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 3
         view.tintColor = .lightGray
         view.isEnabled = false
         return view

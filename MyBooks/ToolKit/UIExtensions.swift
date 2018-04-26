@@ -13,9 +13,11 @@ extension UIButton {
         if status {
             self.tintColor = .white
             self.backgroundColor = DEFAULT_GREEN
+            self.layer.borderColor = DEFAULT_GREEN.cgColor
         } else {
             self.tintColor = .lightGray
             self.backgroundColor = .white
+            self.layer.borderColor = UIColor.lightGray.cgColor
         }
     }
 }

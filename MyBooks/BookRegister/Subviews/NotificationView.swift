@@ -24,6 +24,7 @@ class NotificationView: UIView {
     let notificationSwitch: UISwitch = {
         let view = UISwitch()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.onTintColor = DEFAULT_GREEN
         return view
     }()
     

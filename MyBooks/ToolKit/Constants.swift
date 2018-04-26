@@ -15,6 +15,7 @@ let NEAR: CGFloat = 8
 let NEGATIVE_NEAR: CGFloat = -8
 
 let DEFAULT_GREEN: UIColor = UIColor(red: 28/255, green: 179/255, blue: 178/255, alpha: 1)
+let DEFAULT_GRAY: UIColor = UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
 
 let DEFAULT_FONT_SIZE: CGFloat = 18.0
 let SMALL_FONT_SIZE: CGFloat = 16.0
@@ -29,3 +30,5 @@ let SOME_SECONDS: TimeInterval = 2
 let ONE_DAY: TimeInterval = 86400
 
 let DEFAULT_WIDTH: CGFloat = UIScreen.main.bounds.width
+
+

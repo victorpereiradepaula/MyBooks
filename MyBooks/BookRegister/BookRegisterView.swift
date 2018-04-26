@@ -24,7 +24,9 @@ class BookRegisterView: UIView {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
+        view.backgroundColor = DEFAULT_GRAY
         view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.cornerRadius = 3
         view.layer.borderWidth = 1
         return view
     }()
@@ -32,6 +34,7 @@ class BookRegisterView: UIView {
     let plusImage: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = true
         view.image = #imageLiteral(resourceName: "plus")
         return view
     }()
