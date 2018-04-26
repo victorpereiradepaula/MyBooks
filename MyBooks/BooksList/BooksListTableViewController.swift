@@ -58,16 +58,16 @@ class BooksListTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        let newBookRegisterViewController = BookRegisterViewController()
+        newBookRegisterViewController.setBook(book: self.books[index])
+        self.navigationController?.pushViewController(newBookRegisterViewController, animated: true)
+    }
+    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let book = self.books[indexPath.row]
         let title = book.title
-        
-        let details = UITableViewRowAction(style: .normal, title: "Visualizar") { action, index in
-            let newBookRegisterViewController = BookRegisterViewController()
-            newBookRegisterViewController.setBook(book: book)
-            self.navigationController?.pushViewController(newBookRegisterViewController, animated: true)
-        }
-        details.backgroundColor = .black
         
         let remove = UITableViewRowAction(style: .destructive, title: "Remover") { action, index in
             let setFavoriteAlert = UIAlertController(title: "Livro removido", message: "Livro removido com sucesso.", preferredStyle: .alert)
@@ -94,7 +94,7 @@ class BooksListTableViewController: UITableViewController {
             self.present(setFavoriteAlert, animated: true, completion: nil)
             
         }
-        return [remove, details]
+        return [remove]
     }
 
     func loadData() {

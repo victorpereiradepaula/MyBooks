@@ -110,7 +110,7 @@ class BookRegisterViewController: UIViewController {
                 timeInterval = ONE_DAY + datePicker.date.timeIntervalSince1970
                 print(timeInterval)
             } else {
-                timeInterval = bookRegisterView.notificationView.datePicker.date.timeIntervalSince(Date() + SOME_SECONDS)
+                timeInterval = bookRegisterView.notificationView.datePicker.date.timeIntervalSince(Date())
                 print(timeInterval)
             }
             
@@ -131,7 +131,16 @@ class BookRegisterViewController: UIViewController {
     
     
     func createNotifications(identifier: String, inSeconds: TimeInterval, repeats: Bool, completion: @escaping (_ Success: Bool) -> ()) {
+        
+        if repeats {
+//            let triggerWeekly = Calendar.current.dateComponents([.weekday,.hour,.minute,.second], from: date)
+            
+//            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerWeekly, repeats: true)
+        } else {
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: repeats)
+        }
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: repeats)
+        
         
         let content = UNMutableNotificationContent()
         content.title = "Hora de ler \(self.book.title)"
