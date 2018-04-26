@@ -54,7 +54,7 @@ class BooksListTableViewController: UITableViewController {
         let cover = book.cover
         cell.cover.image = UIImage(data: cover as Data)
         let notifications = BDHelper.getNotification(key: book.notificationIdentifier)
-        let isNotification = !notifications.isEmpty
+        let isNotification = !book.notificationIdentifier.isEmpty
         cell.clock.isHidden = isNotification
         cell.clockText.isHidden = isNotification
         if isNotification {
