@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import UserNotifications
 
 class BooksListTableViewController: UITableViewController {
 
@@ -58,11 +59,12 @@ class BooksListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let title = self.books[indexPath.row].title
+        let book = self.books[indexPath.row]
+        let title = book.title
         
-        let details = UITableViewRowAction(style: .normal, title: "Detalhes") { action, index in
+        let details = UITableViewRowAction(style: .normal, title: "Visualizar") { action, index in
             let newBookRegisterViewController = BookRegisterViewController()
-            newBookRegisterViewController.setBook(book: self.books[indexPath.row])
+            newBookRegisterViewController.setBook(book: book)
             self.navigationController?.pushViewController(newBookRegisterViewController, animated: true)
         }
         details.backgroundColor = .black
@@ -72,6 +74,11 @@ class BooksListTableViewController: UITableViewController {
             setFavoriteAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default){ action in
                 
                 self.tableView.isEditing = false
+                
+                let identifier = book.notificationIdentifier
+                if(identifier != "") {
+                    UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [identifier])
+                }
                 
                 let realm = try! Realm()
                 realm.refresh()

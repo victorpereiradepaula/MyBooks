@@ -88,10 +88,7 @@ class RepeatView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.isUserInteractionEnabled = true
-        
-        
         
         let stackHeader: UIStackView = {
             let view = UIStackView(arrangedSubviews: [repeatLabel, repeatSwitch])

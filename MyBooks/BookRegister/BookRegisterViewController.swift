@@ -30,10 +30,11 @@ class BookRegisterViewController: UIViewController {
     
     func setupScrollView() {
         bookRegisterView.frame = view.frame
-        let scrollView = UIScrollView(frame: view.frame)
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 60, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 60))
         scrollView.backgroundColor = .white
         scrollView.isPagingEnabled = true
         scrollView.contentSize = view.bounds.size
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior.scrollableAxes
         scrollView.addSubview(bookRegisterView)
         view.addSubview(scrollView)
     }
@@ -102,29 +103,42 @@ class BookRegisterViewController: UIViewController {
         let newBook = Book()
         newBook.setValues(title: book.title, pages: book.pages, cover: book.cover)
         
+        if bookRegisterView.isEnabledNotification {
+            let datePicker = bookRegisterView.notificationView.datePicker
+            let timeInterval: TimeInterval
+            if datePicker.date.timeIntervalSince1970 < Date().timeIntervalSince1970 {
+                timeInterval = ONE_DAY + datePicker.date.timeIntervalSince1970
+                print(timeInterval)
+            } else {
+                timeInterval = bookRegisterView.notificationView.datePicker.date.timeIntervalSince(Date() + SOME_SECONDS)
+                print(timeInterval)
+            }
+            
+            let identifier = "\(self.book.title)_Identifier"
+            let repeats = bookRegisterView.isEnabledRepeat
+            newBook.setNotification(notificationIdentifier: identifier, timeInterval: timeInterval, repeatDay: repeats,repeatDomingo: bookRegisterView.isDomingo, repeatSegunda: bookRegisterView.isSegunda, repeatTerca: bookRegisterView.isTerca, repeatQuarta: bookRegisterView.isQuarta, repeatQuinta: bookRegisterView.isQuinta, repeatSexta: bookRegisterView.isSexta, repeatSabado: bookRegisterView.isSabado)
+            createNotifications(identifier: identifier, inSeconds: timeInterval, repeats: repeats, completion: { (success) in })
+        }
+        
         let realm = try! Realm()
         realm.refresh()
         try! realm.write {
             realm.add(newBook, update: true)
         }
         
-        if bookRegisterView.isEnabledNotification {
-            let date = bookRegisterView.notificationView.datePicker.date.timeIntervalSince(Date() + ONE_MINUTE)
-            createNotifications(inSeconds: date, completion: { (success) in })
-        }
         self.navigationController?.popViewController(animated: true)
     }
     
     
-    func createNotifications(inSeconds: TimeInterval, completion: @escaping (_ Success: Bool) -> ()) {
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: bookRegisterView.isEnabledRepeat)
+    func createNotifications(identifier: String, inSeconds: TimeInterval, repeats: Bool, completion: @escaping (_ Success: Bool) -> ()) {
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: inSeconds, repeats: repeats)
         
         let content = UNMutableNotificationContent()
         content.title = "Hora de ler \(self.book.title)"
         content.body = "Acesse o MyBooks e confira seus livros."
         content.sound = UNNotificationSound.default()
         
-        let notification = UNNotificationRequest(identifier: "\(self.book.title)_Identifier", content: content, trigger: trigger)
+        let notification = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(notification) { (error) in
             if error != nil {
@@ -163,12 +177,11 @@ extension BookRegisterViewController: UIImagePickerControllerDelegate, UINavigat
     
 }
 
-
-
+// Extension para separar 
 extension BookRegisterViewController: UIGestureRecognizerDelegate {
     func setupGestures() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openPhotoLibrary))
         tapGestureRecognizer.delegate = self
-        bookRegisterView.cover.addGestureRecognizer(tapGestureRecognizer)
+        bookRegisterView.plusImage.addGestureRecognizer(tapGestureRecognizer)
     }
 }

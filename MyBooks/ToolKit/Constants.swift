@@ -25,4 +25,7 @@ let magicLabelWidth: CGFloat = 65
 
 let INT_16MB: Int = 16000000
 
-let ONE_MINUTE: TimeInterval = 60
+let SOME_SECONDS: TimeInterval = 2
+let ONE_DAY: TimeInterval = 86400
+
+let DEFAULT_WIDTH: CGFloat = UIScreen.main.bounds.width
