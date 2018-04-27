@@ -9,9 +9,11 @@
 import UIKit
 
 class BookRegisterView: UIView {
-
+    
+    // Vetor auxiliar para definição do status de cada botão de dia da semana
     var weekDays = [false, false, false, false, false, false, false]
     
+    // Subviews
     var cover: UIImageView = {
         let view = UIImageView()
         view.setDefaults()
@@ -24,7 +26,6 @@ class BookRegisterView: UIView {
         view.image = #imageLiteral(resourceName: "plus")
         return view
     }()
-    
     let titleLabel: UILabel = {
         let view = UILabel()
         view.setDefaults(text: "Título:")
@@ -35,7 +36,6 @@ class BookRegisterView: UIView {
         view.setSmall(text: "Páginas:")
         return view
     }()
-    
     let titleText: UITextField = {
         let view = UITextField()
         view.setDefaults(keyboard: .default)
@@ -46,9 +46,12 @@ class BookRegisterView: UIView {
         view.setDefaults(keyboard: .numberPad)
         return view
     }()
-    
-    let notificationView = NotificationView()
-    let repeatView = RepeatView()
+    let notificationView: NotificationView = {
+        return NotificationView()
+    }()
+    let repeatView: RepeatView = {
+        return RepeatView()
+    }()
     
     // Construtor
     override init(frame: CGRect) {
@@ -100,21 +103,7 @@ class BookRegisterView: UIView {
         
     }
     
-    // Definição de ações para os botões referentes aos dias da semana
-    func setupButtons() {
-        // Dias da semana
-        repeatView.domingo.addTarget(self, action: #selector(repeatDomingo), for: .touchUpInside)
-        repeatView.segunda.addTarget(self, action: #selector(repeatSegunda), for: .touchUpInside)
-        repeatView.terca.addTarget(self, action: #selector(repeatTerca), for: .touchUpInside)
-        repeatView.quarta.addTarget(self, action: #selector(repeatQuarta), for: .touchUpInside)
-        repeatView.quinta.addTarget(self, action: #selector(repeatQuinta), for: .touchUpInside)
-        repeatView.sexta.addTarget(self, action: #selector(repeatSexta), for: .touchUpInside)
-        repeatView.sabado.addTarget(self, action: #selector(repeatSabado), for: .touchUpInside)
-        
-        // Switchs
-        notificationView.notificationSwitch.addTarget(self, action: #selector(enableNotification), for: .valueChanged)
-        repeatView.repeatSwitch.addTarget(self, action: #selector(enableRepeat), for: .valueChanged)
-    }
+
     
     // Retorna se existem notificações
     func isNotificationEnabled() -> Bool {
@@ -136,36 +125,6 @@ class BookRegisterView: UIView {
     // Habilita e desabita repetição do alarme
     @objc func enableRepeat() {
         repeatView.enableRepeat()
-    }
-    
-    // Ativa e desativa a repetição do alarme para dia da semana selecionado
-    @objc func repeatDomingo() {
-        weekDays[0] = !weekDays[0]
-        repeatView.domingo.setColor(status: weekDays[0])
-    }
-    @objc func repeatSegunda() {
-        weekDays[1] = !weekDays[1]
-        repeatView.segunda.setColor(status: weekDays[1])
-    }
-    @objc func repeatTerca() {
-        weekDays[2] = !weekDays[2]
-        repeatView.terca.setColor(status: weekDays[2])
-    }
-    @objc func repeatQuarta() {
-        weekDays[3] = !weekDays[3]
-        repeatView.quarta.setColor(status: weekDays[3])
-    }
-    @objc func repeatQuinta() {
-        weekDays[4] = !weekDays[4]
-        repeatView.quinta.setColor(status: weekDays[4])
-    }
-    @objc func repeatSexta() {
-        weekDays[5] = !weekDays[5]
-        repeatView.sexta.setColor(status: weekDays[5])
-    }
-    @objc func repeatSabado() {
-        weekDays[6] = !weekDays[6]
-        repeatView.sabado.setColor(status: weekDays[6])
     }
     
     // Define valores das views referentes a informações dos livros
@@ -203,26 +162,14 @@ class BookRegisterView: UIView {
         if notification.repeatDay {
             repeatView.enableRepeat()
             
-            if notification.domingo {
-                repeatDomingo()
-            }
-            if notification.segunda {
-                repeatSegunda()
-            }
-            if notification.terca {
-                repeatTerca()
-            }
-            if notification.quarta {
-                repeatQuarta()
-            }
-            if notification.quinta {
-                repeatQuinta()
-            }
-            if notification.sexta {
-                repeatSexta()
-            }
-            if notification.sabado {
-                repeatSabado()
+            let weekDaysButtons = [repeatView.domingo, repeatView.segunda, repeatView.terca, repeatView.quarta, repeatView.quinta, repeatView.sexta, repeatView.sabado]
+            let weekDays = notification.weekDays
+            let length = weekDays.count
+            
+            for index in 0...length {
+                let isActivated = weekDays[index]
+                let weekDay = weekDaysButtons[index]
+                weekDay.setColor(status: isActivated)
             }
         }
     }
@@ -256,5 +203,48 @@ extension BookRegisterView: UITextFieldDelegate {
         }
         return true
     }
+}
 
+// Separar configuração e funções dos botões de dias da semana
+extension BookRegisterView {
+    // Definição de ações para os botões referentes aos dias da semana
+    func setupButtons() {
+        // Dias da semana
+        repeatView.segunda.addTarget(self, action: #selector(repeatDomingo), for: .touchUpInside)
+        repeatView.segunda.addTarget(self, action: #selector(repeatSegunda), for: .touchUpInside)
+        repeatView.terca.addTarget(self, action: #selector(repeatTerca), for: .touchUpInside)
+        repeatView.quarta.addTarget(self, action: #selector(repeatQuarta), for: .touchUpInside)
+        repeatView.quinta.addTarget(self, action: #selector(repeatQuinta), for: .touchUpInside)
+        repeatView.sexta.addTarget(self, action: #selector(repeatSexta), for: .touchUpInside)
+        repeatView.sabado.addTarget(self, action: #selector(repeatSabado), for: .touchUpInside)
+        
+        // Switchs
+        notificationView.notificationSwitch.addTarget(self, action: #selector(enableNotification), for: .valueChanged)
+        repeatView.repeatSwitch.addTarget(self, action: #selector(enableRepeat), for: .valueChanged)
+    }
+    
+    // Ativa e desativa a repetição do alarme para dia da semana selecionado
+    func enableWeekDay(day: Int) {
+        
+        let weekDaysButtons = [repeatView.domingo, repeatView.segunda, repeatView.terca, repeatView.quarta, repeatView.quinta, repeatView.sexta, repeatView.sabado]
+        
+        let isActivated = !weekDays[day]
+        weekDaysButtons[day].setColor(status: isActivated)
+    }
+    
+    @objc func repeatDomingo() {
+        enableWeekDay(day: 0)
+    }; @objc func repeatSegunda() {
+        enableWeekDay(day: 1)
+    }; @objc func repeatTerca() {
+        enableWeekDay(day: 2)
+    }; @objc func repeatQuarta() {
+        enableWeekDay(day: 3)
+    }; @objc func repeatQuinta() {
+        enableWeekDay(day: 4)
+    }; @objc func repeatSexta() {
+        enableWeekDay(day: 5)
+    }; @objc func repeatSabado() {
+        enableWeekDay(day: 6)
+    }
 }

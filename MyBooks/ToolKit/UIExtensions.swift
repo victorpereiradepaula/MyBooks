@@ -12,7 +12,8 @@ import UIKit
 
 extension UIButton {
     func setColor(status: Bool) {
-        //
+        
+        // true (ativado) | false (desativado)
         if status {
             self.tintColor = .white
             self.backgroundColor = GREEN
