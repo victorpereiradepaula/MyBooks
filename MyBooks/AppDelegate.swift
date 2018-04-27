@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UNUserNotificationCenter.current().delegate = self
         
+        // Requisita altorização do usuário para enviar notificações
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { (granted, error) in })
         
         let booksListNavigationController = UINavigationController(rootViewController: BooksListTableViewController()) // Cria uma UINavigationController, setanndo o rootViewController como BooksListTableViewController
@@ -27,8 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : GREEN] // Seta DEFAULT_GREEN como a cor dos titulos dos UINavigationBar
         
         window = UIWindow(frame: UIScreen.main.bounds) // Cria uma UIWindow com frame do tamanho do retângulo da tela do aparelho
-        window?.rootViewController =  booksListNavigationController // Define booksListNavigationController como rootViewController (inicial)
-        window?.makeKeyAndVisible() // Torna visível
+        window?.rootViewController =  booksListNavigationController // Define booksListNavigationController como rootViewController (principal)
+        window?.makeKeyAndVisible() // Torna a controller principoal visível e traz para frente das demais janelas
         return true
     }
 }
