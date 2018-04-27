@@ -69,9 +69,28 @@ class BooksListTableViewController: UITableViewController {
             let notifications = BDHelper.getNotification(key: book.notificationIdentifier)
             let notification = notifications[0]
             
-            let hour = String(notification.hour)
-            let minute = String(notification.minute)
-            let dateText = "\(hour):\(minute)"
+            // Formatação da hora exibida
+            let hour = notification.hour
+            let minute = notification.minute
+            var stringHour: String
+            var stringMinute: String
+            
+            if hour == 0 {
+                stringHour = "00"
+            } else if hour < 10 {
+                stringHour = "0" + String(hour)
+            } else {
+                stringHour = String(hour)
+            }
+            if minute == 0 {
+                stringMinute = "00"
+            } else if minute < 10 {
+                stringMinute = "0" + String(minute)
+            } else {
+                stringMinute = String(minute)
+            }
+            
+            let dateText = "\(stringHour):\(stringMinute)"
             cell.clockText.text = dateText
         }
         

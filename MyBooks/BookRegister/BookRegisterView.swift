@@ -162,14 +162,17 @@ class BookRegisterView: UIView {
         let newDate = dateComponents.date!
         notificationView.datePicker.setDate(newDate, animated: false)
         
+        // Executa se existirem notificações
         if notification.repeats() {
-            repeatView.repeatSwitch.isOn = true
+            repeatView.repeatSwitch.isOn = true // Liga o botão de notificações ativas
             repeatView.enableRepeat()
             
+            // Vetor auxiliar com os botões referentes aos dias da semana
             let weekDaysButtons = [repeatView.domingo, repeatView.segunda, repeatView.terca, repeatView.quarta, repeatView.quinta, repeatView.sexta, repeatView.sabado]
             let weekDays = notification.weekDays
             let length = weekDays.count
             
+            // Para cada botão de weekDaysButtons define se esta ativo ou não
             for index in 0..<length {
                 let isActivated = weekDays[index]
                 let weekDay = weekDaysButtons[index]
