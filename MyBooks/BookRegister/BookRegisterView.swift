@@ -152,16 +152,20 @@ class BookRegisterView: UIView {
         repeatView.sabado.setColor(status: weekDays[6])
     }
     
-    func setValues(book: Book, notification: MyNotification) {
-        
+    func setValues(book: Book) {
         pagesText.text = String(book.pages)
         cover.image = UIImage(data: book.cover as Data)
         titleText.text = book.title
-        
-        let notificationIdentifier = book.notificationIdentifier
-        if notificationIdentifier != "" {
+    }
+    
+    func setValues(book: Book, notification: MyNotification) {
+
+        setValues(book: book)
+    
+        if book.hasNotification {
             
             notificationView.isEnabledNotification = true
+            notificationView.notificationSwitch.setOn(true, animated: false)
             let hour = notification.hour
             let minute = notification.minute
             var dateComponents = DateComponents()

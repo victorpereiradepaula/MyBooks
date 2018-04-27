@@ -16,6 +16,12 @@ class Book: Object {
         self.pages = pages
         self.title = title
         self.notificationIdentifier = notification.notificationIdentifier
+        
+        if notificationIdentifier.isEmpty {
+            self.hasNotification = false
+        } else {
+            self.hasNotification = true
+        }
     }
     
     func setValues(book: Book) {
@@ -23,11 +29,18 @@ class Book: Object {
         self.pages = book.pages
         self.title = book.title
         self.notificationIdentifier = book.notificationIdentifier
+        
+        if notificationIdentifier.isEmpty {
+            self.hasNotification = false
+        } else {
+            self.hasNotification = true
+        }
     }
     
     @objc dynamic var title: String = ""
     @objc dynamic var pages: Int = 0
     @objc dynamic var cover = NSData()
+    @objc dynamic var hasNotification: Bool = false
     
     @objc dynamic var notificationIdentifier: String = ""
 

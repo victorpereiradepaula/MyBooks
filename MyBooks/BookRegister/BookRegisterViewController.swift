@@ -102,11 +102,12 @@ class BookRegisterViewController: UIViewController {
             book.pages = Int(pages)!
         }
         
-        let newBook = Book()
-        newBook.setValues(title: book.title, pages: book.pages, cover: book.cover)
         let newNotification = MyNotification()
         
-        if bookRegisterView.isEnabledNotification {
+        let hasNotification = bookRegisterView.isEnabledNotification
+        
+        if hasNotification {
+            book.notificationIdentifier = book.title
             let datePicker = bookRegisterView.notificationView.datePicker
             let date = datePicker.date
             let components = Calendar.current.dateComponents([.hour, .minute], from: date)
@@ -119,13 +120,21 @@ class BookRegisterViewController: UIViewController {
             newNotification.setNotification(notificationIdentifier: identifier, hour: hour, minute: minute, repeatDay: repeats, weekDays: weekDays)
         }
         
-        BDHelper.add(book: book, notification: newNotification)
+        let newBook = Book()
+        newBook.setValues(book: book)
+        
+        BDHelper.add(book: newBook, notification: newNotification)
         
         self.navigationController?.popViewController(animated: true)
     }
     
     func setBook(book: Book) {
-        bookRegisterView.setValues(book: book, notification: notification)
+        let notfication = BDHelper.getNotification(key: book.notificationIdentifier)
+        if notfication.isEmpty {
+            bookRegisterView.setValues(book: book)
+        } else {
+            bookRegisterView.setValues(book: book, notification: notification)
+        }
     }
 }
 

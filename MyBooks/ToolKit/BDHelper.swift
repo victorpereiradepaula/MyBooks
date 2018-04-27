@@ -12,11 +12,13 @@ import UserNotifications
 class BDHelper {
     
     static func add(book: Book, notification: MyNotification = MyNotification()) {
-        add(book: book)
-        if !notification.notificationIdentifier.isEmpty {
+        
+        if book.hasNotification {
+            book.notificationIdentifier = notification.notificationIdentifier
             add(notification: notification)
             createNotifications(notification: notification, title: book.title)
         }
+        add(book: book)
     }
     
     static private func add(book: Book) {
