@@ -8,8 +8,11 @@
 
 import UIKit
 
+// Criação de funções para atribição de valores default para views
+
 extension UIButton {
     func setColor(status: Bool) {
+        //
         if status {
             self.tintColor = .white
             self.backgroundColor = GREEN

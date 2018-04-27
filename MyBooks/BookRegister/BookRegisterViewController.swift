@@ -14,7 +14,7 @@ class BookRegisterViewController: UIViewController {
 
     let bookRegisterView = BookRegisterView()
     let book = Book()
-    let notification = MyNotification()
+    let notification = Notification()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,7 @@ class BookRegisterViewController: UIViewController {
         let title: String = bookRegisterView.titleText.text!
         if !title.isEmpty {
             
-            let exists = BDHelper.exists(key: title)
+            let exists = BDHelper.existsBook(key: title)
             if exists {
                 let alertView = UIAlertController(title: "Livro já cadastrado", message: "Deseja substituir sobreescrever os dados existentes?", preferredStyle: .alert)
                 alertView.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in
@@ -102,7 +102,7 @@ class BookRegisterViewController: UIViewController {
             book.pages = Int(pages)!
         }
         
-        let newNotification = MyNotification()
+        let newNotification = Notification()
         
         let hasNotification = bookRegisterView.isNotificationEnabled()
         

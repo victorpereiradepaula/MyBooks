@@ -58,7 +58,7 @@ class NotificationView: UIView {
     }
     
     // Habilita e desabilita o datePicker
-    func enableNotification() {
+    func enableDatePicker() {
         datePicker.isEnabled = notificationSwitch.isOn
     }
     

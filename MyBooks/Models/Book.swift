@@ -11,7 +11,7 @@ import RealmSwift
 
 class Book: Object {
     
-    func setValues(title: String, pages: Int = 0, cover: NSData = NSData(), notification: MyNotification = MyNotification()) {
+    func setValues(title: String, pages: Int = 0, cover: NSData = NSData(), notification: Notification = Notification()) {
         self.cover = cover
         self.pages = pages
         self.title = title

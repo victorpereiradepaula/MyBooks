@@ -105,12 +105,12 @@ class RepeatView: UIView {
         // Se for desabilitado, muda a posição do switchButton e desabilita os botões dos dias da semana
         if !isEnabled {
             repeatSwitch.isOn = false
-            enableDays()
+            enableRepeat()
         }
     }
     
     // Habilita e desabilita os botões dos dias da semana
-    func enableDays() {
+    func enableRepeat() {
         let isEnabled = isRepeatEnabled()
         domingo.isEnabled = isEnabled
         segunda.isEnabled = isEnabled

@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Criação de funções para definir constraints de forma mais simples
 extension UIView {
     
     // Centra no mesmo ponto que a View passada por parametro esta centrada

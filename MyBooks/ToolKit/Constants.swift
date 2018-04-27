@@ -8,6 +8,8 @@
 
 import UIKit
 
+// Definição de variáveis globais
+
 let FAR: CGFloat = 16
 let NEGATIVE_FAR: CGFloat = -16
 
