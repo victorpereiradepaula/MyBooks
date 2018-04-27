@@ -156,7 +156,7 @@ extension BooksListTableViewController {
         self.navigationController?.pushViewController(newBookRegisterViewController, animated: true)
     }
     
-    // Retorna um vetor com de ações
+    // Retorna um vetor com de ações (swipe)
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         return createActions(indexPath: indexPath)
     }
