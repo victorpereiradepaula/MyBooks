@@ -10,52 +10,48 @@ import UIKit
 
 class BooksListTableViewCell: UITableViewCell {
     
+    // Criação das subviews
     var cover: UIImageView = {
         let view = UIImageView()
         view.setDefaults()
         return view
     }()
-    
+    lazy var clock: UIImageView =  {
+        let view = UIImageView(image: UIImage(imageLiteralResourceName: "clock"))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     let titleLabel: UILabel = {
         let view = UILabel()
         view.setDefaults(text: "Título:")
         return view
     }()
-    
-    let titleText: UILabel = {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     let pagesLabel: UILabel = {
         let view = UILabel()
         view.setSmall(text: "Páginas:")
         return view
     }()
-    
+    let titleText: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     let pagesText: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    lazy var clock: UIImageView =  {
-        let view = UIImageView(image: #imageLiteral(resourceName: "clock"))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let clockText: UILabel = {
+    lazy var clockText: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    // Construtor
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .none
         
+        // Criação de stacks
         let stackLabels: UIStackView = {
             let view = UIStackView(arrangedSubviews: [titleLabel, pagesLabel])
             view.setDefaults(axis: .vertical)
@@ -72,11 +68,13 @@ class BooksListTableViewCell: UITableViewCell {
             return view
         }()
         
+        // Adiciona subviews na view
         addSubview(cover)
         addSubview(stackInfo)
         addSubview(clock)
         addSubview(clockText)
         
+        // Definição das constraints
         cover.setSize(width: IMAGE_WIDTH, height: IMAGE_HEIGHT)
         cover.setAnchors(topAnchor: self.topAnchor, FAR, leftAnchor: self.leftAnchor, FAR)
         stackLabels.setWidth(magicLabelWidth)
@@ -86,6 +84,7 @@ class BooksListTableViewCell: UITableViewCell {
         clockText.setAnchors(topAnchor: clock.topAnchor, leftAnchor: clock.rightAnchor, 8)
     }
     
+    // Obrigatório quando fazemos o override de init
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
