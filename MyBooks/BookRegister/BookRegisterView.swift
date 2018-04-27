@@ -54,7 +54,7 @@ class BookRegisterView: UIView {
     
     let repeatView = RepeatView()
     
-    
+    // Construtor
     override init(frame: CGRect) {
         super.init(frame: frame)
         titleText.delegate = self
@@ -209,12 +209,13 @@ class BookRegisterView: UIView {
         }
     }
     
+    // Obrigatório quando sobrescrevemos o init
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-// Esconder o teclado
+// Esconder o teclado e delimitar caracteres dos textFields
 extension BookRegisterView: UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

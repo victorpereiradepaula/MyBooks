@@ -16,7 +16,7 @@ class RepeatView: UIView {
         return view
     }()
     
-    // Botão que habilita os botões dos dias da semana
+    // Botão para habilitar e desabilitar os botões dos dias da semana
     let repeatSwitch: UISwitch = {
         let view = UISwitch()
         view.setDefaults()
@@ -121,6 +121,7 @@ class RepeatView: UIView {
         sabado.isEnabled = isEnabled
     }
     
+    // Obrigatório quando sobrescrevemos o init
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
