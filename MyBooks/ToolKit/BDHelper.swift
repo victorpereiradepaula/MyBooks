@@ -61,10 +61,9 @@ class BDHelper {
         if repeats {
             let weekDays = notification.weekDays
             let lenght = weekDays.count
-            for index in 0...lenght {
+            for index in 0..<lenght {
                 if weekDays[index] {
                     let identifierDay = notificationIdentifier + String(index)
-                    print(identifierDay)
                     components.weekday = index + 1
                     components.timeZone = .current
                     let calendar = Calendar(identifier: .gregorian)
@@ -114,7 +113,7 @@ class BDHelper {
             var keys = [String]()
             if !toDeleteNotifications.isEmpty {
                 
-                for index in 0...toDeleteNotifications.count {
+                for index in 0..<toDeleteNotifications.count {
                     let day = toDeleteNotifications[index]
                     if day {
                         let string = notificationIdentifier + String(index)

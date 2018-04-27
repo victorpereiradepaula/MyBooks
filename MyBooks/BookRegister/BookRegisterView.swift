@@ -129,9 +129,12 @@ class BookRegisterView: UIView {
     
     // Define valores das views referentes a informações dos livros
     func setValues(book: Book) {
-        pagesText.text = String(book.pages)
         cover.image = UIImage(data: book.cover as Data)
         titleText.text = book.title
+        let pages = book.pages
+        if pages != 0 {
+            pagesText.text = String(book.pages)
+        }
     }
     
     // Chama funções para definir valores das views
@@ -160,13 +163,14 @@ class BookRegisterView: UIView {
         notificationView.datePicker.setDate(newDate, animated: false)
         
         if notification.repeats() {
+            repeatView.repeatSwitch.isOn = true
             repeatView.enableRepeat()
             
             let weekDaysButtons = [repeatView.domingo, repeatView.segunda, repeatView.terca, repeatView.quarta, repeatView.quinta, repeatView.sexta, repeatView.sabado]
             let weekDays = notification.weekDays
             let length = weekDays.count
             
-            for index in 0...length {
+            for index in 0..<length {
                 let isActivated = weekDays[index]
                 let weekDay = weekDaysButtons[index]
                 weekDay.setColor(status: isActivated)
@@ -232,8 +236,8 @@ extension BookRegisterView {
         
         let weekDaysButtons = [repeatView.domingo, repeatView.segunda, repeatView.terca, repeatView.quarta, repeatView.quinta, repeatView.sexta, repeatView.sabado]
         
-        let isActivated = !weekDays[day]
-        weekDaysButtons[day].setColor(status: isActivated)
+        weekDays[day] = !weekDays[day]
+        weekDaysButtons[day].setColor(status: weekDays[day])
     }
     
     // Funções chamadas pelos botões de dias da semana
