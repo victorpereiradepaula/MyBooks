@@ -10,9 +10,6 @@ import UIKit
 
 class RepeatView: UIView {
     
-    var isEnabledDays = false
-    var isEnabledHeader = false
-    
     let repeatLabel: UILabel = {
         let view = UILabel()
         view.setSmall(text: "Repetir:")
@@ -90,23 +87,28 @@ class RepeatView: UIView {
         self.setSize(width: width, height: height)
     }
     
-    func enableHeader(isEnabled: Bool = false) {
+    func isRepeatEnabled() -> Bool {
+        return repeatSwitch.isOn
+    }
+    
+    func enableHeader(isEnabled: Bool) {
         repeatLabel.isEnabled = isEnabled
         repeatSwitch.isEnabled = isEnabled
         if !isEnabled {
-            repeatSwitch.isOn = isEnabled
+            repeatSwitch.isOn = false
+            enableDays()
         }
     }
     
     func enableDays() {
-        isEnabledDays = repeatSwitch.isOn
-        domingo.isEnabled = isEnabledDays
-        segunda.isEnabled = isEnabledDays
-        terca.isEnabled = isEnabledDays
-        quarta.isEnabled = isEnabledDays
-        quinta.isEnabled = isEnabledDays
-        sexta.isEnabled = isEnabledDays
-        sabado.isEnabled = isEnabledDays
+        let isEnabled = isRepeatEnabled()
+        domingo.isEnabled = isEnabled
+        segunda.isEnabled = isEnabled
+        terca.isEnabled = isEnabled
+        quarta.isEnabled = isEnabled
+        quinta.isEnabled = isEnabled
+        sexta.isEnabled = isEnabled
+        sabado.isEnabled = isEnabled
     }
     
     required init?(coder aDecoder: NSCoder) {

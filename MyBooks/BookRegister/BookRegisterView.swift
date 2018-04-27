@@ -121,7 +121,8 @@ class BookRegisterView: UIView {
     
     @objc func enableNotification() {
         notificationView.enableNotification()
-        repeatView.enableHeader(isEnabled: isNotificationEnabled())
+        let isEnabled = isNotificationEnabled()
+        repeatView.enableHeader(isEnabled: isEnabled)
     }
     
     @objc func enableDays() {
@@ -168,7 +169,6 @@ class BookRegisterView: UIView {
         setValues(book: book)
     
         if book.hasNotification {
-            notificationView.notificationSwitch.setOn(true, animated: false)
             let hour = notification.hour
             let minute = notification.minute
             var dateComponents = DateComponents()
@@ -176,10 +176,10 @@ class BookRegisterView: UIView {
             dateComponents.minute = minute
             dateComponents.calendar = Calendar.current
             
+            notificationView.notificationSwitch.isOn = true
+            enableNotification()
             let newDate = dateComponents.date!
             notificationView.datePicker.setDate(newDate, animated: false)
-            notificationView.enableNotification()
-            repeatView.enableHeader(isEnabled: true)
             
             if notification.repeatDay {
                 repeatView.enableDays()
