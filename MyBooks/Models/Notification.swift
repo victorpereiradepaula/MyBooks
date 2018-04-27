@@ -36,6 +36,7 @@ class Notification: Object {
         self.weekDays.append(objectsIn: weekDays)
     }
     
+    // Retorna a chave primária
     override static func primaryKey() -> String? {
         return "notificationIdentifier"
     }

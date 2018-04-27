@@ -183,10 +183,12 @@ class BookRegisterView: UIView {
 // Esconder o teclado e delimitar caracteres dos textFields
 extension BookRegisterView: UITextFieldDelegate {
     
+    // Quando toca em outra view (não editável), oculta o teclado
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.endEditing(true)
     }
     
+    // Qaundo a tecla return é clicada passa o ponteiro de edição para o próximo textField, se não houver próximo, oculta o teclado
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == titleText {
             pagesText.becomeFirstResponder()
@@ -196,6 +198,7 @@ extension BookRegisterView: UITextFieldDelegate {
         return true
     }
     
+    // Delimita o número de caracters do campo que recebe o número de páginas
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == pagesText {
             let length = textField.text?.count
@@ -207,6 +210,7 @@ extension BookRegisterView: UITextFieldDelegate {
 
 // Separar configuração e funções dos botões de dias da semana
 extension BookRegisterView {
+    
     // Definição de ações para os botões referentes aos dias da semana
     func setupButtons() {
         // Dias da semana
@@ -232,6 +236,7 @@ extension BookRegisterView {
         weekDaysButtons[day].setColor(status: isActivated)
     }
     
+    // Funções chamadas pelos botões de dias da semana
     @objc func repeatDomingo() {
         enableWeekDay(day: 0)
     }; @objc func repeatSegunda() {
