@@ -55,8 +55,7 @@ class NotificationView: UIView {
     }
     
     func enableNotification() {
-        isEnabledNotification = !isEnabledNotification
-        datePicker.isEnabled = isEnabledNotification
+        datePicker.isEnabled = notificationSwitch.isOn
     }
     
     required init?(coder aDecoder: NSCoder) {

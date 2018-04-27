@@ -104,7 +104,7 @@ class BookRegisterViewController: UIViewController {
         
         let newNotification = MyNotification()
         
-        let hasNotification = bookRegisterView.isEnabledNotification
+        let hasNotification = bookRegisterView.isNotificationEnabled()
         
         if hasNotification {
             book.notificationIdentifier = book.title
@@ -114,7 +114,7 @@ class BookRegisterViewController: UIViewController {
             let hour = components.hour!
             let minute = components.minute!
             let identifier = "\(self.book.title)_Identifier"
-            let repeats = bookRegisterView.isEnabledRepeat
+            let repeats = bookRegisterView.isRepeatEnabled()
             let weekDays = bookRegisterView.weekDays
             
             newNotification.setNotification(notificationIdentifier: identifier, hour: hour, minute: minute, repeatDay: repeats, weekDays: weekDays)
@@ -129,11 +129,11 @@ class BookRegisterViewController: UIViewController {
     }
     
     func setBook(book: Book) {
-        let notfication = BDHelper.getNotification(key: book.notificationIdentifier)
-        if notfication.isEmpty {
+        let notifications = BDHelper.getNotification(key: book.notificationIdentifier)
+        if notifications.isEmpty {
             bookRegisterView.setValues(book: book)
         } else {
-            bookRegisterView.setValues(book: book, notification: notification)
+            bookRegisterView.setValues(book: book, notification: notifications[0])
         }
     }
 }

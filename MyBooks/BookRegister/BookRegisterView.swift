@@ -10,8 +10,6 @@ import UIKit
 
 class BookRegisterView: UIView {
 
-    var isEnabledNotification = false
-    var isEnabledRepeat = false
     var weekDays = [false, false, false, false, false, false, false]
     
     var cover: UIImageView = {
@@ -113,10 +111,17 @@ class BookRegisterView: UIView {
         
     }
     
+    func isNotificationEnabled() -> Bool {
+        return notificationView.notificationSwitch.isOn
+    }
+    
+    func isRepeatEnabled() -> Bool {
+        return repeatView.repeatSwitch.isOn
+    }
+    
     @objc func enableNotification() {
-        isEnabledNotification = !isEnabledNotification
         notificationView.enableNotification()
-        repeatView.enableHeader()
+        repeatView.enableHeader(isEnabled: isNotificationEnabled())
     }
     
     @objc func enableDays() {
@@ -163,8 +168,6 @@ class BookRegisterView: UIView {
         setValues(book: book)
     
         if book.hasNotification {
-            
-            notificationView.isEnabledNotification = true
             notificationView.notificationSwitch.setOn(true, animated: false)
             let hour = notification.hour
             let minute = notification.minute
@@ -176,10 +179,9 @@ class BookRegisterView: UIView {
             let newDate = dateComponents.date!
             notificationView.datePicker.setDate(newDate, animated: false)
             notificationView.enableNotification()
+            repeatView.enableHeader(isEnabled: true)
             
             if notification.repeatDay {
-                repeatView.enableHeader()
-                repeatView.repeatSwitch.isOn = true
                 repeatView.enableDays()
                 
                 if notification.domingo {

@@ -90,14 +90,16 @@ class RepeatView: UIView {
         self.setSize(width: width, height: height)
     }
     
-    func enableHeader() {
-        isEnabledHeader = !isEnabledHeader
-        repeatLabel.isEnabled = isEnabledHeader
-        repeatSwitch.isEnabled = isEnabledHeader
+    func enableHeader(isEnabled: Bool = false) {
+        repeatLabel.isEnabled = isEnabled
+        repeatSwitch.isEnabled = isEnabled
+        if !isEnabled {
+            repeatSwitch.isOn = isEnabled
+        }
     }
     
     func enableDays() {
-        isEnabledDays = !isEnabledDays
+        isEnabledDays = repeatSwitch.isOn
         domingo.isEnabled = isEnabledDays
         segunda.isEnabled = isEnabledDays
         terca.isEnabled = isEnabledDays
