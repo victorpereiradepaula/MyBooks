@@ -15,7 +15,6 @@ class Notification: Object {
     @objc dynamic var notificationIdentifier: String = ""
     @objc dynamic var hour: Int = 0
     @objc dynamic var minute: Int = 0
-    @objc dynamic var repeatDay: Bool = false
     let weekDays = List<Bool>()
     
     // Seta os valores da notificação
@@ -24,16 +23,23 @@ class Notification: Object {
         self.notificationIdentifier = notification.notificationIdentifier
         self.hour = notification.hour
         self.minute = notification.minute
-        self.repeatDay = notification.repeatDay
         self.weekDays.append(objectsIn: notification.weekDays)
     }
-    func setNotification(notificationIdentifier: String, hour: Int, minute: Int, repeatDay: Bool, weekDays: [Bool]) {
+    func setNotification(notificationIdentifier: String, hour: Int, minute: Int, weekDays: [Bool]) {
         
         self.notificationIdentifier = notificationIdentifier
         self.hour = hour
         self.minute = minute
-        self.repeatDay = repeatDay
         self.weekDays.append(objectsIn: weekDays)
+    }
+    
+    func repeats() -> Bool {
+        for day in weekDays {
+            if day {
+                return day
+            }
+        }
+        return false
     }
     
     // Retorna a chave primária

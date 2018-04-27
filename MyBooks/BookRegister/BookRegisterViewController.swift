@@ -114,10 +114,9 @@ class BookRegisterViewController: UIViewController {
             let hour = components.hour!
             let minute = components.minute!
             let identifier = "\(self.book.title)_Identifier"
-            let repeats = bookRegisterView.isRepeatEnabled()
             let weekDays = bookRegisterView.weekDays
             
-            newNotification.setNotification(notificationIdentifier: identifier, hour: hour, minute: minute, repeatDay: repeats, weekDays: weekDays)
+            newNotification.setNotification(notificationIdentifier: identifier, hour: hour, minute: minute, weekDays: weekDays)
         }
         
         let newBook = Book()

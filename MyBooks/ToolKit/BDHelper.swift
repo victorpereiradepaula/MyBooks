@@ -13,6 +13,7 @@ class BDHelper {
     
     static func add(book: Book, notification: Notification = Notification()) {
         
+        remove(notificationIdentifier: book.title)
         // Se existem notificações, cria notificação
         if book.hasNotification() {
             book.notificationIdentifier = notification.notificationIdentifier
@@ -50,33 +51,32 @@ class BDHelper {
         content.body = "Acesse o MyBooks e confira seus livros."
         content.sound = UNNotificationSound.default()
         
-        let notificationIdentifier = notification.notificationIdentifier
-        let repeats = notification.repeatDay
+        let notificationIdentifier = title
+        let repeats = notification.repeats()
+        
         var components = DateComponents()
         components.hour = notification.hour
         components.minute = notification.minute
         
-//        if notification.repeatDay {
-//            let weekDays = [notification.domingo, notification.segunda, notification.terca, notification.quarta, notification.quinta, notification.sexta, notification.sabado]
-//            let lenght = weekDays.count
-//            for index in 0...lenght {
-//                if weekDays[index] {
-//                    components.weekday = index + 1
-//                    components.timeZone = .current
-//
-//
-//                    let calendar = Calendar(identifier: .gregorian)
-//                    let date = calendar.date(from: components)
-//
-//                    let triggerWeekly = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date!)
-//                    settupNotification(notificationIdentifier: identifier, contents: content, dateComponents: triggerWeekly, repeats: repeats)
-//                }
-//            }
-//        } else {
+        if repeats {
+            let weekDays = notification.weekDays
+            let lenght = weekDays.count
+            for index in 0...lenght {
+                if weekDays[index] {
+                    let identifierDay = notificationIdentifier + String(index)
+                    print(identifierDay)
+                    components.weekday = index + 1
+                    components.timeZone = .current
+                    let calendar = Calendar(identifier: .gregorian)
+                    let date = calendar.date(from: components)
+
+                    let triggerWeekly = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date!)
+                    addLocalNotification(notificationIdentifier: identifierDay, contents: content, dateComponents: triggerWeekly, repeats: repeats)
+                }
+            }
+        } else {
             addLocalNotification(notificationIdentifier: notificationIdentifier, contents: content, dateComponents: components, repeats: repeats)
-//        }
-        
-        
+        }
     }
     
     // Adiciona notificações locais
@@ -91,10 +91,10 @@ class BDHelper {
     // Remove livros
     static func remove(book: Book) {
         let title = book.title
-        let notificationIdentifier = book.notificationIdentifier
 
         // Se existirem notificações, chama função para remove-las
-        if notificationIdentifier.isEmpty {
+        if book.hasNotification() {
+            let notificationIdentifier = book.notificationIdentifier
             remove(notificationIdentifier: notificationIdentifier)
         }
         
@@ -109,22 +109,35 @@ class BDHelper {
     // Remove notificações do banco e do sistema
     static private func remove(notificationIdentifier: String) {
         
-        removeLocalNotifications(notificationIdentifier: notificationIdentifier)
-        
-        let realm = try! Realm()
-        realm.refresh()
-        try! realm.write {
-            realm.delete(realm.object(ofType: Notification.self, forPrimaryKey: notificationIdentifier)!)
+        if existsNotificaton(key: notificationIdentifier) {
+            let toDeleteNotifications = getNotificationWeekDay(key: notificationIdentifier)
+            var keys = [String]()
+            if !toDeleteNotifications.isEmpty {
+                
+                for index in 0...toDeleteNotifications.count {
+                    let day = toDeleteNotifications[index]
+                    if day {
+                        let string = notificationIdentifier + String(index)
+                        keys.append(string)
+                    }
+                }
+                
+            } else {
+                keys.append(notificationIdentifier)
+            }
+            
+            // Remove notificações entregues com identificador igual ao recebido
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: keys)
+            
+            // Remove notificações pendentes com identificador igual ao recebido
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: keys)
+            
+            let realm = try! Realm()
+            realm.refresh()
+            try! realm.write {
+                realm.delete(realm.object(ofType: Notification.self, forPrimaryKey: notificationIdentifier)!)
+            }
         }
-    }
-    
-    // Remove notificações locais
-   static private func removeLocalNotifications(notificationIdentifier: String) {
-        // Remove notificações entregues com identificador igual ao recebido
-        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [notificationIdentifier])
-        
-        // Remove notificações pendentes com identificador igual ao recebido
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
     }
     
     
@@ -154,6 +167,19 @@ class BDHelper {
         var notifications = [Notification]()
         notifications.append(contentsOf: bdNotifications)
         return notifications
+    }
+    
+    // Recebe o vetor de notificações
+    private static func getNotificationWeekDay(key: String) -> List<Bool> {
+        
+        let notifications = getNotification(key: key)
+        if !notifications.isEmpty {
+            let notification = notifications[0]
+            if notification.repeats() {
+                return notification.weekDays
+            }
+        }
+        return List<Bool>()
     }
     
     // Retorna se existem notificações ou não

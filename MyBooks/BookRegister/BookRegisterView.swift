@@ -159,7 +159,7 @@ class BookRegisterView: UIView {
         let newDate = dateComponents.date!
         notificationView.datePicker.setDate(newDate, animated: false)
         
-        if notification.repeatDay {
+        if notification.repeats() {
             repeatView.enableRepeat()
             
             let weekDaysButtons = [repeatView.domingo, repeatView.segunda, repeatView.terca, repeatView.quarta, repeatView.quinta, repeatView.sexta, repeatView.sabado]
@@ -214,7 +214,7 @@ extension BookRegisterView {
     // Definição de ações para os botões referentes aos dias da semana
     func setupButtons() {
         // Dias da semana
-        repeatView.segunda.addTarget(self, action: #selector(repeatDomingo), for: .touchUpInside)
+        repeatView.domingo.addTarget(self, action: #selector(repeatDomingo), for: .touchUpInside)
         repeatView.segunda.addTarget(self, action: #selector(repeatSegunda), for: .touchUpInside)
         repeatView.terca.addTarget(self, action: #selector(repeatTerca), for: .touchUpInside)
         repeatView.quarta.addTarget(self, action: #selector(repeatQuarta), for: .touchUpInside)
