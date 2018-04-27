@@ -168,7 +168,7 @@ class BookRegisterView: UIView {
 
         setValues(book: book)
     
-        if book.hasNotification {
+        if book.hasNotification() {
             let hour = notification.hour
             let minute = notification.minute
             var dateComponents = DateComponents()

@@ -19,6 +19,7 @@ class BooksListTableViewCell: UITableViewCell {
     lazy var clock: UIImageView =  {
         let view = UIImageView(image: UIImage(imageLiteralResourceName: "clock"))
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
         return view
     }()
     let titleLabel: UILabel = {
@@ -44,6 +45,7 @@ class BooksListTableViewCell: UITableViewCell {
     lazy var clockText: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
         return view
     }()
     

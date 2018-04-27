@@ -13,7 +13,7 @@ class BDHelper {
     
     static func add(book: Book, notification: MyNotification = MyNotification()) {
         
-        if book.hasNotification {
+        if book.hasNotification() {
             book.notificationIdentifier = notification.notificationIdentifier
             add(notification: notification)
             createNotifications(notification: notification, title: book.title)
