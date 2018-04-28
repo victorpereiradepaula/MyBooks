@@ -66,6 +66,7 @@ class BookRegisterViewController: UIViewController {
             if exists {
                 let alertView = UIAlertController(title: "Livro já cadastrado", message: "Deseja substituir sobreescrever os dados existentes?", preferredStyle: .alert)
                 alertView.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in
+                    self.navigationController?.popViewController(animated: true)
                     return
                 }))
                 alertView.addAction(UIAlertAction(title: "Sim", style: .destructive, handler: { (action) in
