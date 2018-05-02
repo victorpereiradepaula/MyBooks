@@ -1,4 +1,5 @@
 # MyBooks (iOS app)
+[![codebeat badge](https://codebeat.co/badges/50d2ccf2-6472-41c0-96ab-ade831f5eb95)](https://codebeat.co/projects/github-com-victorpereiradepaula-mybooks-master)
 
 ## Vídeo
 <a href="https://youtu.be/qUnnn6faAFw">https://youtu.be/qUnnn6faAFw</a>
