@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         UNUserNotificationCenter.current().delegate = self
         
@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().barTintColor = .black  // Seta preto como a cor do fundo dos UINavigationBar
         UINavigationBar.appearance().tintColor = GREEN // Seta DEFAULT_GREEN como a cor dos botoes dos UINavigationBar
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : GREEN] // Seta DEFAULT_GREEN como a cor dos titulos dos UINavigationBar
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : GREEN] // Seta DEFAULT_GREEN como a cor dos titulos dos UINavigationBar
         
         window = UIWindow(frame: UIScreen.main.bounds) // Cria uma UIWindow com frame do tamanho do retângulo da tela do aparelho
         window?.rootViewController =  booksListNavigationController // Define booksListNavigationController como rootViewController (principal)

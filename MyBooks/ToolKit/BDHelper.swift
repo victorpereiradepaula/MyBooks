@@ -29,7 +29,7 @@ class BDHelper {
         let realm = try! Realm()
         realm.refresh()
         try! realm.write {
-            realm.add(book, update: true)
+            realm.add(book)
         }
     }
     
@@ -38,7 +38,7 @@ class BDHelper {
         let realm = try! Realm()
         realm.refresh()
         try! realm.write {
-            realm.add(notification, update: true)
+            realm.add(notification)
         }
     }
     
@@ -49,7 +49,7 @@ class BDHelper {
         let content = UNMutableNotificationContent()
         content.title = "Hora de ler \(title)"
         content.body = "Acesse o MyBooks e confira seus livros."
-        content.sound = UNNotificationSound.default()
+        content.sound = UNNotificationSound.default
         
         let notificationIdentifier = title
         let repeats = notification.repeats()

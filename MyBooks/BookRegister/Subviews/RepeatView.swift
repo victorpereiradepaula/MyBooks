@@ -25,37 +25,37 @@ class RepeatView: UIView {
 
     // Botões referentes aos dias da semana
     let domingo: UIButton = {
-        let view = UIButton(type: UIButtonType.system)
+        let view = UIButton(type: UIButton.ButtonType.system)
         view.setDefaults(title: "D")
         return view
     }()
     let segunda: UIButton = {
-        let view = UIButton(type: UIButtonType.system)
+        let view = UIButton(type: UIButton.ButtonType.system)
         view.setDefaults(title: "S")
         return view
     }()
     let terca: UIButton = {
-        let view = UIButton(type: UIButtonType.system)
+        let view = UIButton(type: UIButton.ButtonType.system)
         view.setDefaults(title: "T")
         return view
     }()
     let quarta: UIButton = {
-        let view = UIButton(type: UIButtonType.system)
+        let view = UIButton(type: UIButton.ButtonType.system)
         view.setDefaults(title: "Q")
         return view
     }()
     let quinta: UIButton = {
-        let view = UIButton(type: UIButtonType.system)
+        let view = UIButton(type: UIButton.ButtonType.system)
         view.setDefaults(title: "Q")
         return view
     }()
     let sexta: UIButton = {
-        let view = UIButton(type: UIButtonType.system)
+        let view = UIButton(type: UIButton.ButtonType.system)
         view.setDefaults(title: "S")
         return view
     }()
     let sabado: UIButton = {
-        let view = UIButton(type: UIButtonType.system)
+        let view = UIButton(type: UIButton.ButtonType.system)
         view.setDefaults(title: "S")
         return view
     }()

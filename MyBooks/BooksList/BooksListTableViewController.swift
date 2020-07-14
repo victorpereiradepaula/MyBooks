@@ -120,7 +120,7 @@ class BooksListTableViewController: UITableViewController {
     
     // Seta as configurações iniciais da barra de navegação
     func setupNavigationBar() {
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(goToBookRegisterViewController))
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(goToBookRegisterViewController))
         self.navigationItem.setRightBarButton(addButton, animated: true)
         navigationItem.title = "Livros"
     }

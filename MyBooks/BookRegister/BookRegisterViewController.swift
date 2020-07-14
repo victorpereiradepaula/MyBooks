@@ -30,7 +30,7 @@ class BookRegisterViewController: UIViewController {
         navigationItem.title = "Cadastro de livro" // Define o título
         
         // Cria o botão de salvar
-        let saveButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(saveBook))
+        let saveButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.save, target: self, action: #selector(saveBook))
         
         // Define o botão de salvar como o botão direito do navbar
         self.navigationItem.setRightBarButton(saveButton, animated: true)
@@ -43,7 +43,7 @@ class BookRegisterViewController: UIViewController {
         scrollView.backgroundColor = .white
         scrollView.isPagingEnabled = true
         scrollView.contentSize = view.bounds.size
-        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior.scrollableAxes
+        scrollView.contentInsetAdjustmentBehavior = UIScrollView.ContentInsetAdjustmentBehavior.scrollableAxes
         scrollView.addSubview(bookRegisterView)
         view.addSubview(scrollView)
     }
@@ -88,7 +88,7 @@ class BookRegisterViewController: UIViewController {
     func validateBookImage() {
         let image = bookRegisterView.cover.image
         if image != nil {
-            let imageData: NSData = UIImagePNGRepresentation(image!)! as NSData
+            let imageData: NSData = image!.pngData()! as NSData
             if imageData.length > INT_16MB {
                 bookRegisterView.cover.image = nil
                 let alertView = UIAlertController(title: "Imagem muito grande", message: "Deseja salvar sem uma imagem?", preferredStyle: .alert)
@@ -163,8 +163,11 @@ extension BookRegisterViewController: UIImagePickerControllerDelegate, UINavigat
         dismiss(animated: true, completion: nil)
     }
     // Ao terminar a seleção da imagem, adiciona ela a imageView e volta para a tela anterior
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as! UIImage
         bookRegisterView.cover.image = image
         dismiss(animated: true, completion: nil)
     }
@@ -186,4 +189,14 @@ extension BookRegisterViewController: UIGestureRecognizerDelegate {
         tapGestureRecognizer.delegate = self
         bookRegisterView.plusImage.addGestureRecognizer(tapGestureRecognizer)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

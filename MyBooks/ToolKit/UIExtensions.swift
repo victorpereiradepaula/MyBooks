@@ -28,7 +28,7 @@ extension UIButton {
     func setDefaults(title: String) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.borderColor = UIColor.lightGray.cgColor
-        self.setTitle(title, for: UIControlState.normal)
+        self.setTitle(title, for: UIControl.State.normal)
         self.layer.cornerRadius = CORNER_RADIUS
         self.layer.borderWidth = BORDER_WIDTH
         self.tintColor = .lightGray
@@ -81,7 +81,7 @@ extension UISwitch  {
 }
 
 extension UIStackView {
-    func setDefaults(axis: UILayoutConstraintAxis, spacing: CGFloat = NEAR) {
+    func setDefaults(axis: NSLayoutConstraint.Axis, spacing: CGFloat = NEAR) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.axis = axis
         self.spacing = spacing
