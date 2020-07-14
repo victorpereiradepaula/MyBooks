@@ -1,6 +1,6 @@
 # MyBooks - iOS
 
-This app allows you to add books and alerts to remind you the time to read this, you also can remove added books and see your book list.
+This app allows you to add books and alerts to remind you the time to read, you also can remove added books and see your book list.
 
 [![GitHub license](https://img.shields.io/github/license/victorpereiradepaula/MyBooks)](https://github.com/victorpereiradepaula/MyBooks/blob/master/LICENSE)
 ![Xcode 11.5+](https://img.shields.io/badge/Xcode-11.5%2B-blue.svg)
@@ -18,7 +18,7 @@ This app allows you to add books and alerts to remind you the time to read this,
 
 ## Warning
 
-This project was created in 2018, with the objective of joining as a intern in a company, but during that time I was a long time without program to iOS and this source has some problems and bad prattices.
+This project was created in 2018, with the objective of joining a company as a intern, but during that time I was a long time without programming to iOS apps and this source has some problems and bad prattices.
 So, if you want to use it, good luck and keep refactoring.
 
 ## Features
