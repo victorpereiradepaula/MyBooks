@@ -28,7 +28,7 @@ So, if you want to use it, good luck and keep refactoring.
 - [x] Remove books
 - [x] Create alerts
 
-## [Sample video](https://youtu.be/qUnnn6faAFw">https://youtu.be/qUnnn6faAFw)
+## [Sample video](https://youtu.be/qUnnn6faAFw)
 
 ## Sample images
 ![List](/samples/list.png)
